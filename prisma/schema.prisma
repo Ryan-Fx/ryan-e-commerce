@@ -96,6 +96,7 @@ model Product {
   description String
   price       Int
   image       String
+  stock       Int
   categoryId  String
   orderId     String?
   createdAt   DateTime @default(now())
