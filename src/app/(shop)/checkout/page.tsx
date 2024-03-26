@@ -1,10 +1,11 @@
 import { getAddress } from "@/actions/get-address";
-import CheckoutDetail from "@/components/checkout/checkout-detail";
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import { MdLocationOn } from "react-icons/md";
 import { FaShippingFast } from "react-icons/fa";
 import Payment from "@/components/checkout/payment";
+import Link from "next/link";
+import CheckoutTableCard from "@/components/checkout/checkout-table-card";
 
 export default async function CheckoutPage() {
   const session = await getServerSession(authOptions);
@@ -20,22 +21,34 @@ export default async function CheckoutPage() {
           <MdLocationOn size={20} className="mr-1" />
           Delivery Address
         </div>
-        <div className="flex space-x-48 mt-2">
-          <div className="font-semibold">
-            <p>{session?.user.name}</p>
-            {address.map((adu) => (
-              <p>{adu.phoneNumber}</p>
+        {!address || address.length === 0 ? (
+          <div className="mt-2">
+            <p>Please input your address first!</p>
+            <Link
+              href={"/address"}
+              className="text-blue-500 hover:text-red-500 font-semibold italic"
+            >
+              Clik here
+            </Link>
+          </div>
+        ) : (
+          <div className="flex space-x-48 mt-2">
+            <div className="font-semibold">
+              <p>{session?.user.name}</p>
+              {address.map((adu) => (
+                <p>{adu.phoneNumber}</p>
+              ))}
+            </div>
+            {address.map((ad) => (
+              <p>
+                {ad.street}, {ad.city}, {ad.state}, {ad.postalCode}
+              </p>
             ))}
           </div>
-          {address.map((ad) => (
-            <p>
-              {ad.street}, {ad.city}, {ad.state}, {ad.postalCode}
-            </p>
-          ))}
-        </div>
+        )}
       </div>
       <div className="p-4 bg-white shadow-md rounded-md">
-        <CheckoutDetail />
+        <CheckoutTableCard />
       </div>
       <div className="p-4 bg-white shadow-md rounded-md">
         <div className="text-lg text-red-500 flex items-center">

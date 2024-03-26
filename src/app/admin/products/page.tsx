@@ -28,6 +28,7 @@ export default async function Products() {
                 <th className="w-[200px]">Product Name</th>
                 <th className="w-[400px]">Description</th>
                 <th>Price</th>
+                <th>Stock</th>
                 <th className="w-[120px]">Image</th>
                 <th>Category</th>
                 <th className="w-[100px]">Actions</th>
@@ -40,6 +41,7 @@ export default async function Products() {
                   <td>{product.name}</td>
                   <td>{product.description}</td>
                   <td>{product.price}</td>
+                  <td>{product.stock}</td>
                   <td>
                     <Image
                       src={product.image}

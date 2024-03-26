@@ -1,6 +1,5 @@
 "use client";
 
-import { z } from "zod";
 import {
   Card,
   CardContent,
@@ -9,26 +8,6 @@ import {
   CardTitle,
 } from "../ui/card";
 import { Address, User } from "@prisma/client";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Button } from "../ui/button";
-import axios from "axios";
-import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
-
-const PhoneSchema = z.object({
-  phoneNumber: z.string().min(1, "Phone is required"),
-});
 
 interface UserProp {
   user: User | null;
@@ -36,15 +15,6 @@ interface UserProp {
 }
 
 export default function ProfileCard({ user, address }: UserProp) {
-  const router = useRouter();
-
-  const form = useForm<z.infer<typeof PhoneSchema>>({
-    resolver: zodResolver(PhoneSchema),
-    defaultValues: {
-      phoneNumber: "",
-    },
-  });
-
   return (
     <div className="flex justify-center">
       <Card className="w-[800px] border-none shadow-lg">

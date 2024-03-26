@@ -12,20 +12,26 @@ interface ShippingCostProp {
 function getTotal(cartItems: CartProduct[]) {
   let totalQty = 0;
   let totalPrice = 0;
+  let stockLeft = 0;
 
   cartItems.map((item) => {
     totalQty += item.quantity!;
     totalPrice += item.price * item.quantity!;
+    stockLeft += item.stock - item.quantity!;
   });
 
-  return { totalQty, totalPrice };
+  return { totalQty, totalPrice, stockLeft };
 }
 
 export default function Payment({ shippingCost }: ShippingCostProp) {
   const { cartItems } = useCartStore();
+  console.log(cartItems);
 
   const quantity = getTotal(cartItems).totalQty;
   const total = getTotal(cartItems).totalPrice;
+  const totalStock = getTotal(cartItems).stockLeft;
+
+  console.log(quantity, total, totalStock);
 
   return (
     <>
