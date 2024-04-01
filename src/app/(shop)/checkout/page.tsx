@@ -1,4 +1,3 @@
-import { getAddress } from "@/actions/get-address";
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import { MdLocationOn } from "react-icons/md";
@@ -6,10 +5,11 @@ import { FaShippingFast } from "react-icons/fa";
 import Payment from "@/components/checkout/payment";
 import Link from "next/link";
 import CheckoutTableCard from "@/components/checkout/checkout-table-card";
+import { getUserById } from "@/actions/get-user-by-id";
 
 export default async function CheckoutPage() {
   const session = await getServerSession(authOptions);
-  const address = await getAddress();
+  const user = await getUserById(session?.user.id as string);
 
   const shippingCost = 46000;
 
@@ -21,7 +21,7 @@ export default async function CheckoutPage() {
           <MdLocationOn size={20} className="mr-1" />
           Delivery Address
         </div>
-        {!address || address.length === 0 ? (
+        {!user?.address ? (
           <div className="mt-2">
             <p>Please input your address first!</p>
             <Link
@@ -35,21 +35,22 @@ export default async function CheckoutPage() {
           <div className="flex space-x-48 mt-2">
             <div className="font-semibold">
               <p>{session?.user.name}</p>
-              {address.map((adu) => (
-                <p>{adu.phoneNumber}</p>
-              ))}
+
+              <p>{user.address.phoneNumber}</p>
             </div>
-            {address.map((ad) => (
-              <p>
-                {ad.street}, {ad.city}, {ad.state}, {ad.postalCode}
-              </p>
-            ))}
+
+            <p>
+              {user.address.street}, {user.address.city}, {user.address.state},{" "}
+              {user.address.postalCode}
+            </p>
           </div>
         )}
       </div>
+
       <div className="p-4 bg-white shadow-md rounded-md">
         <CheckoutTableCard />
       </div>
+
       <div className="p-4 bg-white shadow-md rounded-md">
         <div className="text-lg text-red-500 flex items-center">
           <FaShippingFast size={20} className="mr-2" />
@@ -60,6 +61,7 @@ export default async function CheckoutPage() {
           <p>Rp {shippingCost}</p>
         </div>
       </div>
+
       <div className="p-4 bg-white shadow-md rounded-md">
         <Payment shippingCost={shippingCost} />
       </div>

@@ -52,7 +52,6 @@ const ProductFormSchema = z.object({
   name: z.string().min(1, "Name is required"),
   description: z.string().min(1, "Description is required"),
   price: z.coerce.number().min(1, "Price is required"),
-  stock: z.coerce.number().min(1, "Stock is required"),
   categoryId: z.string().min(1, "Category is required"),
   image: z.string().optional(),
 });
@@ -71,7 +70,6 @@ export default function AddProductForm({ categories }: Category) {
       name: "",
       description: "",
       price: 0,
-      stock: 0,
       categoryId: "",
       image: "",
     },
@@ -178,20 +176,6 @@ export default function AddProductForm({ categories }: Category) {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Price *</FormLabel>
-                      <FormControl>
-                        <Input type="number" min={0} {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="stock"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Stock *</FormLabel>
                       <FormControl>
                         <Input type="number" min={0} {...field} />
                       </FormControl>

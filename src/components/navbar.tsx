@@ -36,7 +36,10 @@ export default async function Navbar() {
                 <DropdownMenuItem>
                   <Link href={"/profile"}>Profile</Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem>Order</DropdownMenuItem>
+                <DropdownMenuItem>
+                  {" "}
+                  <Link href={"/order"}>Order</Link>
+                </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem className="font-semibold text-[16px]">
                   <LogoutBtn />

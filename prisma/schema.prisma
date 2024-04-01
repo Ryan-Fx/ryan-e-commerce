@@ -56,6 +56,7 @@ model User {
   role          Role      @default(USER)
   accounts      Account[]
   sessions      Session[]
+  orders        Order[]
   address       Address?
 }
 
@@ -96,12 +97,11 @@ model Product {
   description String
   price       Int
   image       String
+  inStock     Boolean  @default(true)
   categoryId  String
-  orderId     String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   category    Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-  order       Order?   @relation(fields: [orderId], references: [id])
 }
 
 enum Status {
@@ -111,10 +111,11 @@ enum Status {
 }
 
 model Order {
-  id        String    @id @default(cuid())
+  id        String   @id @default(cuid())
   userId    String
   amount    Int
-  status    Status    @default(PENDING)
-  createdAt DateTime  @default(now())
-  products  Product[]
+  items     Json[]
+  status    Status   @default(PENDING)
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

@@ -10,6 +10,8 @@ import { IoCartOutline } from "react-icons/io5";
 import Link from "next/link";
 import { FaCheckCircle } from "react-icons/fa";
 import { IoReturnUpBackSharp } from "react-icons/io5";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 interface ProductProps {
   product: ProductWithCategory | null;
@@ -24,6 +26,8 @@ export default function ProductDetailCard({ product }: ProductProps) {
   const [total, setTotal] = useState(1);
 
   const { addItemToCart, cartItems } = useCartStore();
+  const { status } = useSession();
+  const router = useRouter();
 
   const itemExist = cartItems.find((item) => item.id === product?.id);
 
@@ -98,7 +102,11 @@ export default function ProductDetailCard({ product }: ProductProps) {
           ) : (
             <div>
               <Button
-                onClick={onAddToCart}
+                onClick={() => {
+                  status === "unauthenticated"
+                    ? router.push("/login")
+                    : onAddToCart();
+                }}
                 className="bg-red-600 hover:bg-red-500"
               >
                 <IoCartOutline size={20} className="mr-2" />

@@ -18,6 +18,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaChevronDown } from "react-icons/fa";
 import { HiMiniShoppingBag } from "react-icons/hi2";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Ryan Mall",
+  description: "Ecommerce Website",
+  icons: {
+    icon: "/icon.png",
+  },
+};
 
 export default async function Home() {
   const products = await getProducts();
@@ -45,7 +54,9 @@ export default async function Home() {
                     <DropdownMenuItem>
                       <Link href={"/profile"}>Profile</Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem>Order</DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Link href={"/order"}>Order</Link>
+                    </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem className="font-semibold text-[16px]">
                       <LogoutBtn />

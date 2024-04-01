@@ -4,6 +4,10 @@ import useCartStore from "@/store/use-cart-store";
 import { CartProduct } from "@/types/cart-product";
 import { BsCreditCard2FrontFill } from "react-icons/bs";
 import { Button } from "../ui/button";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import { Item } from "@radix-ui/react-dropdown-menu";
 
 interface ShippingCostProp {
   shippingCost: number;
@@ -12,26 +16,56 @@ interface ShippingCostProp {
 function getTotal(cartItems: CartProduct[]) {
   let totalQty = 0;
   let totalPrice = 0;
-  let stockLeft = 0;
 
   cartItems.map((item) => {
     totalQty += item.quantity!;
     totalPrice += item.price * item.quantity!;
-    stockLeft += item.stock - item.quantity!;
   });
 
-  return { totalQty, totalPrice, stockLeft };
+  return { totalQty, totalPrice };
 }
 
 export default function Payment({ shippingCost }: ShippingCostProp) {
-  const { cartItems } = useCartStore();
+  const { cartItems, clearCart } = useCartStore();
   console.log(cartItems);
+
+  const router = useRouter();
 
   const quantity = getTotal(cartItems).totalQty;
   const total = getTotal(cartItems).totalPrice;
-  const totalStock = getTotal(cartItems).stockLeft;
 
-  console.log(quantity, total, totalStock);
+  let amount = total + shippingCost;
+
+  const totalProduct = cartItems.length;
+  console.log(totalProduct);
+
+  console.log(quantity, total);
+
+  function onOrderPayment() {
+    axios
+      .post("/api/order", {
+        amount: amount,
+        items: cartItems.map((item) => {
+          return {
+            id: item.id,
+            name: item.name,
+            quantity: item.quantity,
+            price: item.price,
+            image: item.image,
+          };
+        }),
+      })
+      .then((res) => {
+        toast.success("Payment Successful");
+        clearCart();
+        router.refresh();
+        router.push("/");
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("Something went wrong!");
+      });
+  }
 
   return (
     <>
@@ -39,6 +73,11 @@ export default function Payment({ shippingCost }: ShippingCostProp) {
         <BsCreditCard2FrontFill size={20} className="mr-2" />
         Payment
       </div>
+      {cartItems.map((item) => (
+        <>
+          <p>tesse {item.price}</p>
+        </>
+      ))}
       <div className="flex justify-end px-20 mt-2">
         <table>
           <tbody>
@@ -75,7 +114,10 @@ export default function Payment({ shippingCost }: ShippingCostProp) {
             Terms & Conditions.
           </span>
         </p>
-        <Button className="bg-red-500 hover:bg-red-600 rounded-sm w-[200px]">
+        <Button
+          onClick={onOrderPayment}
+          className="bg-red-500 hover:bg-red-600 rounded-sm w-[200px]"
+        >
           Place Order
         </Button>
       </div>

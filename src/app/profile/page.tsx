@@ -1,4 +1,3 @@
-import { getAddress } from "@/actions/get-address";
 import { getUserById } from "@/actions/get-user-by-id";
 import NavbarShop from "@/components/navbar-shop";
 import ProfileCard from "@/components/profile/profile-card";
@@ -17,14 +16,13 @@ export default async function ProfilePage() {
   const userId = session?.user.id;
 
   const user = await getUserById(userId as string);
-  const address = await getAddress();
-  console.log(address);
+  console.log(user);
 
   return (
     <div className="bg-red-50 min-h-screen">
       <NavbarShop />
       <div className={cn("w-full py-10", mina.className)}>
-        <ProfileCard user={user} address={address} />
+        <ProfileCard user={user} address={user?.address} />
       </div>
     </div>
   );

@@ -11,7 +11,7 @@ import { Address, User } from "@prisma/client";
 
 interface UserProp {
   user: User | null;
-  address: Address[];
+  address: Address | null | undefined;
 }
 
 export default function ProfileCard({ user, address }: UserProp) {
@@ -49,15 +49,14 @@ export default function ProfileCard({ user, address }: UserProp) {
                 <p>Postal Code</p>
                 <p>Phone Number</p>
               </div>
-              {address.map((ad) => (
-                <div key={ad.id}>
-                  <p>{ad.street}</p>
-                  <p>{ad.city}</p>
-                  <p>{ad.state}</p>
-                  <p>{ad.postalCode}</p>
-                  <p>{ad.phoneNumber}</p>
-                </div>
-              ))}
+
+              <div key={address?.id}>
+                <p>{address?.street}</p>
+                <p>{address?.city}</p>
+                <p>{address?.state}</p>
+                <p>{address?.postalCode}</p>
+                <p>{address?.phoneNumber}</p>
+              </div>
             </div>
           </div>
         </CardContent>
