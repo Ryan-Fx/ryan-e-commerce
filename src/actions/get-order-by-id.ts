@@ -1,10 +1,10 @@
 import { prisma } from "@/lib/prisma";
 
-export async function getOrderById(userId: string) {
+export async function getOrderById(orderId: string) {
   try {
-    const order = await prisma.order.findFirst({
+    const order = await prisma.order.findUnique({
       where: {
-        userId: userId,
+        id: orderId,
       },
     });
 

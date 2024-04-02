@@ -59,7 +59,7 @@ export default function Payment({ shippingCost }: ShippingCostProp) {
         toast.success("Payment Successful");
         clearCart();
         router.refresh();
-        router.push("/");
+        router.push("/order");
       })
       .catch((err) => {
         console.log(err);

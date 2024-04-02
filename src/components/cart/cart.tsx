@@ -12,7 +12,7 @@ export default function Cart() {
   const { cartItems, clearCart } = useCartStore();
 
   return (
-    <div className="p-6 bg-slate-50 space-y-4">
+    <div className="p-6 bg-slate-50 space-y-4 min-h-screen">
       <Search />
       <h1 className="text-2xl font-thin text-center py-4">Shopping Cart</h1>
 

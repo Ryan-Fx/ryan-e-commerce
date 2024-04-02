@@ -1,9 +1,12 @@
 import { getOrderById } from "@/actions/get-order-by-id";
 import { getUserOrders } from "@/actions/get-user-orders";
+import { Button } from "@/components/ui/button";
 import { authOptions } from "@/lib/auth";
 import { Prisma } from "@prisma/client";
 import { getServerSession } from "next-auth";
-import Image from "next/image";
+import Link from "next/link";
+import { IoMdEye } from "react-icons/io";
+import moment from "moment";
 
 export default async function OrderPage() {
   const session = await getServerSession(authOptions);
@@ -14,47 +17,18 @@ export default async function OrderPage() {
   // const joss = JSON.stringify(orderObject);
   // const parsedJoss = JSON.parse(joss);
 
-  return (
-    <div className="py-6 px-40">
-      {/* <table className="w-full text-left text-sm">
-        <thead>
-          <tr className="border-b">
-            <th className="py-4 px-2">Products Ordered</th>
-            <th>Item Price</th>
-            <th>Amount</th>
-            <th>Item Subtotal</th>
-          </tr>
-        </thead>
-        {orderObject.map((item: any) => (
-          <tbody>
-            <tr key={item.id}>
-              <td className="py-2 px-2 ">
-                <div className="flex gap-2 w-[500px]">
-                  <Image
-                    src={item.image}
-                    alt={item.name}
-                    width={100}
-                    height={100}
-                  />
-                  <p>{item.name}</p>
-                </div>
-              </td>
-              <td>{item.price}</td>
-              <td>{item.quantity}</td>
-              <td>{item.price * item.quantity!}</td>
-            </tr>
-            <tr className="border-b">
-              <td className="py-4 px-2 text-right" colSpan={3}>
-                Order Total ({item.quantity} item{item.quantity! > 1 && "s"}) :
-              </td>
-              <td className=" font-semibold text-red-500 text-xl">
-                {item.price * item.quantity}
-              </td>
-            </tr>
-          </tbody>
-        ))}
-      </table> */}
+  if (!userOrders)
+    return (
+      <div className="py-6 px-40 space-y-6 min-h-screen">
+        <h1 className="text-center font-semibold text-xl">
+          Your Order History is Empty
+        </h1>
+      </div>
+    );
 
+  return (
+    <div className="py-6 px-40 space-y-6 min-h-screen">
+      <h1 className="text-center font-semibold text-xl">Your Order History</h1>
       <table className="w-full text-left">
         <thead>
           <tr>
@@ -62,6 +36,7 @@ export default async function OrderPage() {
             <th>Order ID</th>
             <th>Amount</th>
             <th>Status</th>
+            <th>Created At</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -72,7 +47,14 @@ export default async function OrderPage() {
               <td>{order?.id}</td>
               <td>{order?.amount}</td>
               <td>{order?.status}</td>
-              <td>tes</td>
+              <td>{moment(order?.createdAt).fromNow()}</td>
+              <td>
+                <Button variant={"ghost"} asChild>
+                  <Link href={`/order/${order?.id}`}>
+                    <IoMdEye size={25} />
+                  </Link>
+                </Button>
+              </td>
             </tr>
           ))}
         </tbody>
