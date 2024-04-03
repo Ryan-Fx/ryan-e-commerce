@@ -27,6 +27,7 @@ import { Category } from "@prisma/client";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { RxPencil2 } from "react-icons/rx";
 
 const UpdateCategoryFormSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -71,7 +72,9 @@ export default function UpdateCategory({ category }: CategoryProps) {
     <>
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger asChild>
-          <Button>Update</Button>
+          <Button variant={"ghost"} title="Update">
+            <RxPencil2 size={20} className="text-blue-500" />
+          </Button>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>

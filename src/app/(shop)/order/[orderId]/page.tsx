@@ -64,7 +64,7 @@ export default async function OrderDetail({
       </table>
       <div className="text-right flex justify-between">
         <p>Order Status : {order?.status}</p>
-        <p>Amount: {order?.amount}</p>
+        <p className="text-red-500 font-semibold">Amount: {order?.amount}</p>
       </div>
     </div>
   );

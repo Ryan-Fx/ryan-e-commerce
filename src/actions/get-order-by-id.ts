@@ -6,6 +6,9 @@ export async function getOrderById(orderId: string) {
       where: {
         id: orderId,
       },
+      include: {
+        user: true,
+      },
     });
 
     console.log(order);

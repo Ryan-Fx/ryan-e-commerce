@@ -2,13 +2,12 @@ import { getCategories } from "@/actions/get-categories";
 import AddCategoryForm from "@/components/admin-category/add-category-form";
 import DeleteCategory from "@/components/admin-category/delete-category";
 import UpdateCategory from "@/components/admin-category/update-category";
-import React from "react";
 
 export default async function CategoriesPage() {
   const categories = await getCategories();
 
   return (
-    <div className="w-full">
+    <div className="w-full p-2">
       <p>Categories List</p>
       <div>
         <table className="w-full text-left">

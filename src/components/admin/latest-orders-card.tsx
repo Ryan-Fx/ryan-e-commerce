@@ -22,7 +22,7 @@ export default function LatestOrdersCard({ order }: OrderProps) {
     <div
       className="flex justify-between cursor-pointer bg-white hover:bg-slate-200 p-3 rounded-sm"
       onClick={() => {
-        router.push(`/order/${order.id}`);
+        router.push(`/admin/orders/${order.id}`);
       }}
     >
       <div>

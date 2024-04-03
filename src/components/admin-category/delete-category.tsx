@@ -17,6 +17,7 @@ import { Category } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { BsTrash } from "react-icons/bs";
 
 interface CategoryProps {
   category: Category;
@@ -50,15 +51,15 @@ export default function DeleteCategory({ category }: CategoryProps) {
     <>
       <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
         <AlertDialogTrigger asChild>
-          <Button variant={"destructive"} type="button">
-            Delete
+          <Button variant={"ghost"} type="button" title="Delete">
+            <BsTrash size={20} className="text-red-600" />
           </Button>
         </AlertDialogTrigger>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>
               Are you sure want to delete{" "}
-              <span className="capitalize text-teal-500 font-semibold">
+              <span className="capitalize text-red-500 font-semibold">
                 {category.name}
               </span>
               ?
