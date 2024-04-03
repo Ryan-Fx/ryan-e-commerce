@@ -23,7 +23,7 @@ export default function NavbarShop() {
       <Link href={"/"} className="w-full flex items-end">
         <HiMiniShoppingBag size={50} className="mr-4 text-secondary" />
         <span className="font-extrabold text-secondary text-4xl">
-          <span className="mr-2 font-thin">|</span> Ryan Mall
+          <span className="mr-2 font-thin">|</span> Ryan Store
         </span>
       </Link>
       <Search />

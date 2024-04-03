@@ -6,6 +6,9 @@ export async function getUserOrders(userId: string) {
       where: {
         userId: userId,
       },
+      orderBy: {
+        id: "desc",
+      },
     });
 
     return userOrders;

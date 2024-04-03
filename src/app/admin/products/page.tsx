@@ -1,8 +1,8 @@
 import { getCategories } from "@/actions/get-categories";
 import { getProducts } from "@/actions/get-products";
-import AddProductForm from "@/components/product-admin/add-product-form";
-import DeleteProduct from "@/components/product-admin/delete-product";
-import UpdateProductForm from "@/components/product-admin/update-product-form";
+import AddProductForm from "@/components/admin-product/add-product-form";
+import DeleteProduct from "@/components/admin-product/delete-product";
+import UpdateProductForm from "@/components/admin-product/update-product-form";
 import Image from "next/image";
 import React from "react";
 

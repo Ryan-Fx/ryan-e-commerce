@@ -9,7 +9,9 @@ const poppins = Poppins({
 
 export default function CartPage() {
   return (
-    <div className={cn("text-muted-foreground", poppins.className)}>
+    <div
+      className={cn("text-muted-foreground min-h-screen", poppins.className)}
+    >
       <Cart />
     </div>
   );

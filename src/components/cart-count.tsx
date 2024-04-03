@@ -13,6 +13,8 @@ export default function CartCount() {
 
   const cartCount = cartItems.length;
 
+  if (pathname === "/order") return null;
+
   return (
     <>
       <Link

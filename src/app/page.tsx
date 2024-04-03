@@ -19,6 +19,7 @@ import Link from "next/link";
 import { FaChevronDown } from "react-icons/fa";
 import { HiMiniShoppingBag } from "react-icons/hi2";
 import type { Metadata } from "next";
+import Footer from "@/components/footer";
 
 export const metadata: Metadata = {
   title: "Ryan Mall",
@@ -77,7 +78,7 @@ export default async function Home() {
           <Link href={"/"} className="w-full flex items-end">
             <HiMiniShoppingBag size={50} className="mr-4 text-secondary" />{" "}
             <span className="font-extrabold text-secondary text-4xl">
-              <span className="mr-2 font-thin">|</span> Ryan Mall
+              <span className="mr-2 font-thin">|</span> Ryan Store
             </span>
           </Link>
           <Search />
@@ -115,13 +116,16 @@ export default async function Home() {
             </div>
           </div>
 
-          <div className="flex flex-wrap justify-between gap-5">
+          <div className="flex flex-wrap justify-between gap-5 min-h-screen">
             {products.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
         </div>
       </main>
+      <footer>
+        <Footer />
+      </footer>
     </div>
   );
 }
