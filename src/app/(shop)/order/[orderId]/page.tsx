@@ -2,7 +2,6 @@ import { getOrderById } from "@/actions/get-order-by-id";
 import { Prisma } from "@prisma/client";
 import moment from "moment";
 import Image from "next/image";
-import React from "react";
 
 export default async function OrderDetail({
   params,

@@ -21,7 +21,6 @@ export default async function ProductPage() {
   return (
     <div className={cn("", poppins.className)}>
       {/* navbar */}
-      <NavbarShop />
       <div className="px-40 py-4 space-y-8">
         <div className="flex">
           <div>

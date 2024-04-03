@@ -51,7 +51,7 @@ export default async function OrderPage() {
               <td>
                 <Button variant={"ghost"} asChild>
                   <Link href={`/order/${order?.id}`}>
-                    <IoMdEye size={25} />
+                    <IoMdEye size={25} title="Click to see your order detail" />
                   </Link>
                 </Button>
               </td>

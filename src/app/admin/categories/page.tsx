@@ -1,7 +1,7 @@
 import { getCategories } from "@/actions/get-categories";
-import AddCategoryForm from "@/components/category/add-category-form";
-import DeleteCategory from "@/components/category/delete-category";
-import UpdateCategory from "@/components/category/update-category";
+import AddCategoryForm from "@/components/admin-category/add-category-form";
+import DeleteCategory from "@/components/admin-category/delete-category";
+import UpdateCategory from "@/components/admin-category/update-category";
 import React from "react";
 
 export default async function CategoriesPage() {

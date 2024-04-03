@@ -1,6 +1,8 @@
+import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
+import NavbarShop from "@/components/navbar-shop";
 
-export default function Productlayout({
+export default function Shoplayout({
   children,
 }: {
   children: React.ReactNode;
@@ -9,9 +11,10 @@ export default function Productlayout({
     <>
       <header>
         <Navbar />
+        <NavbarShop />
       </header>
       <main>{children}</main>
-      <footer></footer>
+      <Footer />
     </>
   );
 }
