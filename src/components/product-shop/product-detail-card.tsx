@@ -50,7 +50,7 @@ export default function ProductDetailCard({ product }: ProductProps) {
         <div className="text-xl space-y-2">
           <h1 className="font-semibold text-primary">{product?.name}</h1>
           <p className="font-bold text-red-600 text-3xl">
-            {new Intl.NumberFormat("id-ID", {
+            {Intl.NumberFormat("id-ID", {
               style: "currency",
               currency: "IDR",
             }).format(product?.price!)}

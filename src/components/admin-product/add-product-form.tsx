@@ -123,10 +123,10 @@ export default function AddProductForm({ categories }: Category) {
   }
 
   return (
-    <div className="p-4">
+    <div className="mt-10">
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger asChild>
-          <Button variant="outline">Add Product</Button>
+          <Button className="w-full">Add Product</Button>
         </DialogTrigger>
         <DialogContent className="w-[90%] max-w-[900px]">
           <DialogHeader>

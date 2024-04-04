@@ -17,6 +17,7 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Loader2 } from "lucide-react";
+import { BsTrash } from "react-icons/bs";
 
 interface ProductProps {
   product: Product;
@@ -53,8 +54,8 @@ export default function DeleteProduct({ product }: ProductProps) {
     <>
       <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
         <AlertDialogTrigger asChild>
-          <Button variant={"destructive"} type="button">
-            Delete
+          <Button variant={"ghost"} type="button">
+            <BsTrash size={20} title="Delete" className="text-red-500" />
           </Button>
         </AlertDialogTrigger>
         <AlertDialogContent>

@@ -7,7 +7,7 @@ export default async function CategoriesPage() {
   const categories = await getCategories();
 
   return (
-    <div className="w-full p-2">
+    <div className="w-full p-2 text-sm space-y-3">
       <p>Categories List</p>
       <div>
         <table className="w-full text-left">
@@ -19,7 +19,7 @@ export default async function CategoriesPage() {
               <th>Actions</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="text-muted-foreground">
             {categories.map((category, index) => (
               <tr key={category.id} className="border-b">
                 <td className="py-3 px-2 ">{index + 1}</td>

@@ -35,8 +35,8 @@ export default async function Home() {
 
   return (
     <div>
-      <header className="fixed top-0 right-0 left-0">
-        <nav className="z-10 bg-red-600 py-2 px-40 opacity-90 backdrop-blur-lg">
+      <header className="fixed top-0 right-0 left-0 backdrop-blur-md">
+        <nav className="bg-red-600 py-2 px-40 opacity-80">
           <div className="flex justify-between">
             <div className="flex justify-end items-center gap-6 w-full">
               {session && <CartCountHome />}
@@ -74,7 +74,7 @@ export default async function Home() {
             </div>
           </div>
         </nav>
-        <div className="flex items-center px-40 bg-red-600 py-5 opacity-90 backdrop-blur-lg">
+        <div className="flex items-center px-40 bg-red-600 py-5 opacity-80">
           <Link href={"/"} className="w-full flex items-end">
             <HiMiniShoppingBag size={50} className="mr-4 text-secondary" />{" "}
             <span className="font-extrabold text-secondary text-4xl">

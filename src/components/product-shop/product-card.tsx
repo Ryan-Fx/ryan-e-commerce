@@ -13,7 +13,7 @@ export default function ProductCard({ product }: ProductProps) {
 
   return (
     <div
-      onClick={() => router.push(`/product/${product.id}`)}
+      onClick={() => router.push(`/admin/products/${product.id}`)}
       title="click to see detail"
       className="w-[200px] h-[300px] flex flex-col items-center cursor-pointer group hover:scale-105 transition duration-300 border overflow-hidden bg-primary-foreground"
     >

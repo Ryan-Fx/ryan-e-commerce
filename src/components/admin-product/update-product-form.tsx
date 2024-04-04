@@ -36,6 +36,7 @@ import Image from "next/image";
 import toast from "react-hot-toast";
 import { Category, Product } from "@prisma/client";
 import axios from "axios";
+import { RxPencil2 } from "react-icons/rx";
 
 const UpdateProductFormSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -120,7 +121,9 @@ export default function UpdateProductForm({
     <>
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger asChild>
-          <Button>Update</Button>
+          <Button variant={"ghost"}>
+            <RxPencil2 size={20} title="Update" className="text-blue-500" />
+          </Button>
         </DialogTrigger>
         <DialogContent className="w-[90%] max-w-[900px]">
           <DialogHeader>

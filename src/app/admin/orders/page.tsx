@@ -2,12 +2,7 @@ import { getOrders } from "@/actions/get-orders";
 import { Button } from "@/components/ui/button";
 import moment from "moment";
 import Link from "next/link";
-import {
-  FaRegClock,
-  FaRegCalendar,
-  FaCalendar,
-  FaRegCalendarCheck,
-} from "react-icons/fa";
+import { FaRegClock, FaRegCalendarCheck } from "react-icons/fa";
 import { IoMdEye } from "react-icons/io";
 
 export default async function Orders() {
@@ -17,7 +12,7 @@ export default async function Orders() {
     <div className="w-full p-2 space-y-3">
       <h1>Orders List</h1>
       <div>
-        <table className="w-full text-left">
+        <table className="w-full text-left text-sm">
           <thead className="bg-slate-100">
             <tr>
               <th className="py-4 px-2">#</th>
@@ -29,7 +24,7 @@ export default async function Orders() {
             </tr>
           </thead>
           {orders.map((order, index) => (
-            <tbody>
+            <tbody className="text-muted-foreground">
               <tr key={order.id} className="border-b">
                 <td className="py-3 px-2">{index + 1}</td>
                 <td>{order.id}</td>

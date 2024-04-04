@@ -3,8 +3,10 @@ import { getProducts } from "@/actions/get-products";
 import AddProductForm from "@/components/admin-product/add-product-form";
 import DeleteProduct from "@/components/admin-product/delete-product";
 import UpdateProductForm from "@/components/admin-product/update-product-form";
+import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import React from "react";
+import Link from "next/link";
+import { IoMdEye } from "react-icons/io";
 
 export default async function Products() {
   const [products, categories] = await Promise.all([
@@ -13,7 +15,7 @@ export default async function Products() {
   ]);
 
   return (
-    <div className="w-full ">
+    <div className="w-full p-4">
       <h1>Product List</h1>
       {products.length < 1 ? (
         <div>
@@ -21,14 +23,14 @@ export default async function Products() {
         </div>
       ) : (
         <div>
-          <table className="w-full text-left text-xs">
+          <table className="w-full text-left text-sm text-muted-foreground">
             <thead className="bg-slate-200">
               <tr>
                 <th className="py-4 px-2">#</th>
                 <th className="w-[200px]">Product Name</th>
+                <th className="w-[120px]">Image</th>
                 <th className="w-[400px]">Description</th>
                 <th>Price</th>
-                <th className="w-[120px]">Image</th>
                 <th>Category</th>
                 <th className="w-[100px]">Actions</th>
               </tr>
@@ -38,8 +40,6 @@ export default async function Products() {
                 <tr key={product.id} className="border-b">
                   <td className="py-3 px-2">{index + 1}</td>
                   <td>{product.name}</td>
-                  <td>{product.description}</td>
-                  <td>{product.price}</td>
                   <td>
                     <Image
                       src={product.image}
@@ -48,8 +48,18 @@ export default async function Products() {
                       height={100}
                     />
                   </td>
+                  <td>
+                    <p>{product.description.substring(0, 30)}...</p>
+                  </td>
+                  <td>{product.price}</td>
+
                   <td>{product.category.name}</td>
-                  <td className="flex items-center py-8 gap-2">
+                  <td className="flex items-center py-8 gap-1">
+                    <Button asChild variant={"ghost"}>
+                      <Link href={`/admin/products/${product.id}`}>
+                        <IoMdEye size={20} title="See detail" />
+                      </Link>
+                    </Button>
                     <UpdateProductForm
                       categories={categories}
                       product={product}
