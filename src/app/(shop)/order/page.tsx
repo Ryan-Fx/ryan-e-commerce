@@ -10,12 +10,7 @@ import moment from "moment";
 
 export default async function OrderPage() {
   const session = await getServerSession(authOptions);
-  const order = await getOrderById(session?.user.id as string);
   const userOrders = await getUserOrders(session?.user.id as string);
-
-  const orderObject = order?.items as Prisma.JsonObject[];
-  // const joss = JSON.stringify(orderObject);
-  // const parsedJoss = JSON.parse(joss);
 
   if (!userOrders)
     return (
