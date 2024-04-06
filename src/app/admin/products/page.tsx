@@ -1,17 +1,30 @@
 import { getCategories } from "@/actions/get-categories";
 import { getProducts } from "@/actions/get-products";
+import {
+  getProductPagesPagination,
+  getProductsPagination,
+} from "@/actions/get-products-pagination";
 import AddProductForm from "@/components/admin-product/add-product-form";
 import DeleteProduct from "@/components/admin-product/delete-product";
+import Pagination from "@/components/admin-product/pagination/pagination";
 import UpdateProductForm from "@/components/admin-product/update-product-form";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import { IoMdEye } from "react-icons/io";
 
-export default async function Products() {
-  const [products, categories] = await Promise.all([
-    getProducts(),
+export default async function Products({
+  searchParams,
+}: {
+  searchParams?: { query?: string; page?: string };
+}) {
+  const query = searchParams?.query || "";
+  const currentPage = Number(searchParams?.page) || 1;
+
+  const [products, categories, totalPages] = await Promise.all([
+    getProductsPagination(currentPage),
     getCategories(),
+    getProductPagesPagination(query),
   ]);
 
   return (
@@ -55,7 +68,7 @@ export default async function Products() {
 
                   <td>{product.category.name}</td>
                   <td className="flex items-center py-8 gap-1">
-                    <Button asChild variant={"ghost"}>
+                    <Button asChild variant={"outline"}>
                       <Link href={`/admin/products/${product.id}`}>
                         <IoMdEye size={20} title="See detail" />
                       </Link>
@@ -70,6 +83,9 @@ export default async function Products() {
               ))}
             </tbody>
           </table>
+          <div className="flex justify-center mt-4">
+            <Pagination totalPages={totalPages} />
+          </div>
         </div>
       )}
 

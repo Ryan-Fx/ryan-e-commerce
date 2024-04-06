@@ -2,8 +2,8 @@ import { FaFacebook, FaInstagram, FaTwitter, FaLinkedin } from "react-icons/fa";
 
 export default function Footer() {
   return (
-    <div>
-      <div className=" bg-slate-100 py-10 px-40 grid grid-cols-3">
+    <div className="px-40">
+      <div className="py-8 grid grid-cols-3 border-t">
         <div className="space-y-4">
           <h2 className="font-semibold text-slate-600">Customer Service</h2>
           <ul className="space-y-3 text-sm text-slate-500">
@@ -43,7 +43,7 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      <div className="w-full p-3 bg-slate-100 pt-10">
+      <div className="w-full p-3 pt-10">
         <p className="text-sm text-slate-500 text-center hover:text-purple-500 transition">
           &copy; 2024 Ryan Store.😎 All rights reserved.
         </p>

@@ -51,7 +51,7 @@ export default async function ProductPage() {
           </div>
         </div>
 
-        <div className="flex flex-wrap justify-between gap-5">
+        <div className="flex flex-wrap justify-between gap-5 pb-12">
           {products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}

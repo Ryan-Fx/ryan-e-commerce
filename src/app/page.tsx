@@ -35,7 +35,7 @@ export default async function Home() {
 
   return (
     <div>
-      <header className="fixed top-0 right-0 left-0 backdrop-blur-md">
+      <header className="fixed top-0 right-0 left-0 backdrop-blur-md z-10">
         <nav className="bg-red-600 py-2 px-40 opacity-80">
           <div className="flex justify-between">
             <div className="flex justify-end items-center gap-6 w-full">
@@ -85,7 +85,7 @@ export default async function Home() {
         </div>
       </header>
 
-      <main className="mt-40">
+      <main className="mt-40 mb-14">
         <div className="px-40 space-y-8">
           <div className="flex">
             <div>

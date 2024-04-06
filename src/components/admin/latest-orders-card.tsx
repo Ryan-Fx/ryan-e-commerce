@@ -20,22 +20,22 @@ export default function LatestOrdersCard({ order }: OrderProps) {
 
   return (
     <div
-      className="flex justify-between cursor-pointer bg-white hover:bg-slate-200 p-3 rounded-sm"
+      className="flex flex-col cursor-pointer bg-white hover:bg-slate-200 p-3 rounded-sm"
       onClick={() => {
         router.push(`/admin/orders/${order.id}`);
       }}
     >
-      <div>
+      <div className="text-sm flex justify-between">
         <p className="font-semibold">{order.user.name}</p>
-        <p className="text-sm text-slate-500">{order.user.email}</p>
-      </div>
-      <div>
-        <p className="font-semibold text-red-500">
+        <p className="font-semibold text-red-500 text-sm">
           {Intl.NumberFormat("id-ID", {
             style: "currency",
             currency: "IDR",
           }).format(order.amount)}
         </p>
+      </div>
+      <div>
+        <p className="text-slate-500 text-xs">{order.user.email}</p>
       </div>
     </div>
   );

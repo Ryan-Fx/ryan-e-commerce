@@ -13,7 +13,7 @@ export default function CartCount() {
 
   const cartCount = cartItems.length;
 
-  if (pathname === "/order") return null;
+  if (pathname === "/cart") return null;
 
   return (
     <>

@@ -1,5 +1,4 @@
 import { getProductById } from "@/actions/get-product-by-id";
-import NavbarShop from "@/components/navbar-shop";
 import ProductDetailCard from "@/components/product-shop/product-detail-card";
 import { cn } from "@/lib/utils";
 import { Poppins } from "next/font/google";
@@ -18,7 +17,6 @@ export default async function ProductDetailPage({
 
   return (
     <div className={cn("", poppins.className)}>
-      <NavbarShop />
       <ProductDetailCard product={product} />
     </div>
   );

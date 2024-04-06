@@ -73,11 +73,6 @@ export default function Payment({ shippingCost }: ShippingCostProp) {
         <BsCreditCard2FrontFill size={20} className="mr-2" />
         Payment
       </div>
-      {cartItems.map((item) => (
-        <>
-          <p>tesse {item.price}</p>
-        </>
-      ))}
       <div className="flex justify-end px-20 mt-2">
         <table>
           <tbody>

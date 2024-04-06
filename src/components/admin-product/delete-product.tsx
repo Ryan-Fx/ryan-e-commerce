@@ -54,7 +54,7 @@ export default function DeleteProduct({ product }: ProductProps) {
     <>
       <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
         <AlertDialogTrigger asChild>
-          <Button variant={"ghost"} type="button">
+          <Button variant={"outline"} type="button">
             <BsTrash size={20} title="Delete" className="text-red-500" />
           </Button>
         </AlertDialogTrigger>

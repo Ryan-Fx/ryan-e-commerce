@@ -13,7 +13,7 @@ export default function ProductCard({ product }: ProductProps) {
 
   return (
     <div
-      onClick={() => router.push(`/admin/products/${product.id}`)}
+      onClick={() => router.push(`/product/${product.id}`)}
       title="click to see detail"
       className="w-[200px] h-[300px] flex flex-col items-center cursor-pointer group hover:scale-105 transition duration-300 border overflow-hidden bg-primary-foreground"
     >
@@ -28,7 +28,12 @@ export default function ProductCard({ product }: ProductProps) {
       </div>
       <div className="p-2 w-full">
         <p className="text-sm">{product.name.substring(0, 45)}...</p>
-        <p className="text-rose-400">Rp {product.price}</p>
+        <p className="text-rose-400">
+          {Intl.NumberFormat("id-ID", {
+            style: "currency",
+            currency: "IDR",
+          }).format(product.price)}
+        </p>
       </div>
     </div>
   );
