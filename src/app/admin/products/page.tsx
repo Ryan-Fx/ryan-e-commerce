@@ -6,7 +6,7 @@ import {
 } from "@/actions/get-products-pagination";
 import AddProductForm from "@/components/admin-product/add-product-form";
 import DeleteProduct from "@/components/admin-product/delete-product";
-import Pagination from "@/components/admin-product/pagination/pagination";
+import Pagination from "@/components/pagination/pagination";
 import UpdateProductForm from "@/components/admin-product/update-product-form";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
@@ -24,7 +24,7 @@ export default async function Products({
   const [products, categories, totalPages] = await Promise.all([
     getProductsPagination(currentPage),
     getCategories(),
-    getProductPagesPagination(query),
+    getProductPagesPagination(),
   ]);
 
   return (

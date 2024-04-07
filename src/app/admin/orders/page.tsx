@@ -1,12 +1,20 @@
-import { getOrders } from "@/actions/get-orders";
+import { getOrders, getOrdersTotalPage } from "@/actions/get-orders";
+import Pagination from "@/components/pagination/pagination";
 import { Button } from "@/components/ui/button";
 import moment from "moment";
 import Link from "next/link";
 import { FaRegClock, FaRegCalendarCheck } from "react-icons/fa";
 import { IoMdEye } from "react-icons/io";
 
-export default async function Orders() {
-  const orders = await getOrders();
+export default async function Orders({
+  searchParams,
+}: {
+  searchParams?: { page?: string };
+}) {
+  const currentPage = Number(searchParams?.page) || 1;
+
+  const orders = await getOrders(currentPage);
+  const totalPages = await getOrdersTotalPage();
 
   return (
     <div className="w-full p-2 space-y-3">
@@ -54,6 +62,9 @@ export default async function Orders() {
             </tbody>
           ))}
         </table>
+        <div className="flex justify-center mt-4">
+          <Pagination totalPages={totalPages} />
+        </div>
       </div>
     </div>
   );

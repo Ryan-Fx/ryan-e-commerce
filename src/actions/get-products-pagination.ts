@@ -2,7 +2,6 @@ import { prisma } from "@/lib/prisma";
 
 const ITEMS_PER_PAGE = 2;
 
-// for search bar
 export async function getProductsPagination(currentPage: number) {
   const offset = (currentPage - 1) * ITEMS_PER_PAGE; // for skip
 
@@ -25,11 +24,11 @@ export async function getProductsPagination(currentPage: number) {
 }
 
 // get total pages
-export async function getProductPagesPagination(query: string) {
+export async function getProductPagesPagination() {
   try {
     const products = await prisma.product.count();
 
-    const totalPages = Math.ceil(Number(products) / ITEMS_PER_PAGE);
+    const totalPages = Math.ceil(products / ITEMS_PER_PAGE);
     return totalPages;
   } catch (error: any) {
     throw new Error(error);

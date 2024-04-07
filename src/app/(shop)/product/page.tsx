@@ -15,8 +15,14 @@ const karla = Karla({
   weight: ["400", "500", "600", "700"],
 });
 
-export default async function ProductPage() {
-  const products = await getProducts();
+export default async function ProductPage({
+  searchParams,
+}: {
+  searchParams?: { query?: string };
+}) {
+  const query = searchParams?.query || "";
+
+  const products = await getProducts(query);
 
   return (
     <div className={cn("", poppins.className)}>

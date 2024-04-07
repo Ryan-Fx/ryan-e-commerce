@@ -10,6 +10,7 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
   const searchParams = useSearchParams();
   const currentPage = Number(searchParams.get("page")) || 1;
 
+  // CREATE PAGE URL
   function createPageURL(pageNumber: string | number) {
     const params = new URLSearchParams(searchParams);
     params.set("page", pageNumber.toString());
@@ -43,6 +44,7 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
               page={page}
               position={position}
               isActive={currentPage === page}
+              isDisabled={currentPage === page}
             />
           );
         })}
