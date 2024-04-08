@@ -49,7 +49,7 @@ export default function CartTable() {
                   >
                     <BiMinus size={20} />
                   </Button>
-                  <span className="border py-2 px-4">{item.quantity}</span>
+                  <span className="py-2 px-4">{item.quantity}</span>
                   <Button
                     variant={"outline"}
                     onClick={() => increaseQuantity(item.id)}

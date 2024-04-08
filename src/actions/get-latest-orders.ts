@@ -3,7 +3,7 @@ import { prisma } from "@/lib/prisma";
 export async function getLatestOrders() {
   try {
     const latestOrders = await prisma.order.findMany({
-      take: 4,
+      take: 5,
       select: {
         id: true,
         amount: true,

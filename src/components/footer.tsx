@@ -3,7 +3,7 @@ import { FaFacebook, FaInstagram, FaTwitter, FaLinkedin } from "react-icons/fa";
 export default function Footer() {
   return (
     <div className="px-40">
-      <div className="py-8 grid grid-cols-3 border-t">
+      <div className="py-8 flex justify-between border-t">
         <div className="space-y-4">
           <h2 className="font-semibold text-slate-600">Customer Service</h2>
           <ul className="space-y-3 text-sm text-slate-500">

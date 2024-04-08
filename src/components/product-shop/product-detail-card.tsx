@@ -8,7 +8,7 @@ import useCartStore from "@/store/use-cart-store";
 import toast from "react-hot-toast";
 import { IoCartOutline } from "react-icons/io5";
 import Link from "next/link";
-import { FaCheckCircle } from "react-icons/fa";
+import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 import { IoReturnUpBackSharp } from "react-icons/io5";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -62,7 +62,7 @@ export default function ProductDetailCard({ product }: ProductProps) {
           <span className="font-normal">{product?.category.name}</span>
         </p>
 
-        {!itemExist && (
+        {!itemExist && product?.inStock && (
           <div className="flex gap-2 items-center">
             <Button
               onClick={() => setTotal(total - 1)}
@@ -84,8 +84,8 @@ export default function ProductDetailCard({ product }: ProductProps) {
               <p className="text-xs">Product added to cart</p>
             </div>
           )}
-          {cartItems.length > 0 && itemExist ? (
-            <div className="flex justify-between">
+          {cartItems.length > 0 && itemExist && product?.inStock ? (
+            <div className="flex justify-start gap-5">
               <Button
                 className="w-[170px] bg-red-500 rounded-sm hover:bg-red-600"
                 asChild
@@ -101,17 +101,36 @@ export default function ProductDetailCard({ product }: ProductProps) {
             </div>
           ) : (
             <div>
-              <Button
-                onClick={() => {
-                  status === "unauthenticated"
-                    ? router.push("/login")
-                    : onAddToCart();
-                }}
-                className="bg-red-600 hover:bg-red-500"
-              >
-                <IoCartOutline size={20} className="mr-2" />
-                Add To Cart
-              </Button>
+              {product?.inStock ? (
+                <div className="flex items-center gap-3">
+                  <Button
+                    onClick={() => {
+                      status === "unauthenticated"
+                        ? router.push("/login")
+                        : onAddToCart();
+                    }}
+                    className="bg-red-600 hover:bg-red-500"
+                  >
+                    <IoCartOutline size={20} className="mr-2" />
+                    Add To Cart
+                  </Button>
+                  <p>
+                    <span className="py-2 px-3 bg-teal-500 text-white rounded-md flex gap-2 items-center">
+                      <FaCheckCircle size={20} />
+                      In Stock
+                    </span>
+                  </p>
+                </div>
+              ) : (
+                <div className="flex">
+                  <p>
+                    <span className="py-2 px-4 bg-rose-500 text-white rounded-full flex gap-2 items-center">
+                      <FaTimesCircle size={20} />
+                      Out Of Stock
+                    </span>
+                  </p>
+                </div>
+              )}
             </div>
           )}
         </div>
