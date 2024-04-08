@@ -36,6 +36,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { Textarea } from "../ui/textarea";
+import { Checkbox } from "../ui/checkbox";
 
 interface Category {
   categories: CategoriesProps[];
@@ -53,6 +54,7 @@ const ProductFormSchema = z.object({
   description: z.string().min(1, "Description is required"),
   price: z.coerce.number().min(1, "Price is required"),
   categoryId: z.string().min(1, "Category is required"),
+  inStock: z.boolean(),
   image: z.string().optional(),
 });
 
@@ -69,8 +71,8 @@ export default function AddProductForm({ categories }: Category) {
     defaultValues: {
       name: "",
       description: "",
-      price: 0,
       categoryId: "",
+      inStock: false,
       image: "",
     },
   });
@@ -163,7 +165,11 @@ export default function AddProductForm({ categories }: Category) {
                     <FormItem>
                       <FormLabel>Description *</FormLabel>
                       <FormControl>
-                        <Textarea rows={15} {...field} />
+                        <Textarea
+                          className="resize-none"
+                          rows={15}
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -214,6 +220,25 @@ export default function AddProductForm({ categories }: Category) {
 
                 <FormField
                   control={form.control}
+                  name="inStock"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Available Stock</FormLabel>
+                      <div className="border rounded-md p-4 flex items-end space-x-2">
+                        <FormControl>
+                          <Checkbox
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
+                          />
+                        </FormControl>
+                        <FormLabel>In Stock</FormLabel>
+                      </div>
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
                   name="image"
                   render={({ field }) => (
                     <FormItem>
@@ -221,7 +246,7 @@ export default function AddProductForm({ categories }: Category) {
                       <FormControl>
                         {image ? (
                           <>
-                            <div className="w-[500px] h-[400px] rounded-md relative">
+                            <div className="w-[500px] h-[400px] rounded-md relative mx-auto">
                               <Image
                                 fill
                                 src={image}

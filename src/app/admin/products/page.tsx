@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import { IoMdEye } from "react-icons/io";
+import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 
 export default async function Products({
   searchParams,
@@ -20,11 +21,12 @@ export default async function Products({
 }) {
   const query = searchParams?.query || "";
   const currentPage = Number(searchParams?.page) || 1;
+  const itemPerPage = 4;
 
   const [products, categories, totalPages] = await Promise.all([
-    getProductsPagination(currentPage),
+    getProductsPagination(currentPage, itemPerPage),
     getCategories(),
-    getProductPagesPagination(),
+    getProductPagesPagination(itemPerPage),
   ]);
 
   return (
@@ -40,19 +42,21 @@ export default async function Products({
             <thead className="bg-slate-200">
               <tr>
                 <th className="py-4 px-2">#</th>
-                <th className="w-[200px]">Product Name</th>
-                <th className="w-[120px]">Image</th>
-                <th className="w-[400px]">Description</th>
+                <th>Product Name</th>
+                <th>Image</th>
                 <th>Price</th>
-                <th>Category</th>
-                <th className="w-[100px]">Actions</th>
+                <th>Available Stock</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
               {products.map((product, index) => (
                 <tr key={product.id} className="border-b">
                   <td className="py-3 px-2">{index + 1}</td>
-                  <td>{product.name}</td>
+                  <td>
+                    {product.name.substring(0, 30)}
+                    {product.name.length >= 30 && "..."}
+                  </td>
                   <td>
                     <Image
                       src={product.image}
@@ -61,16 +65,31 @@ export default async function Products({
                       height={100}
                     />
                   </td>
-                  <td>
-                    <p>{product.description.substring(0, 30)}...</p>
-                  </td>
+                  {/* <td>
+                    <p>
+                      {product.description.substring(0, 50)}
+                      {product.description.length >= 50 && "..."}
+                    </p>
+                  </td> */}
                   <td>{product.price}</td>
 
-                  <td>{product.category.name}</td>
+                  <td>
+                    {product.inStock ? (
+                      <div className="flex gap-2 items-center">
+                        <FaCheckCircle size={16} className="text-teal-400" />
+                        <p>In stock</p>
+                      </div>
+                    ) : (
+                      <div className="flex gap-2 items-center">
+                        <FaTimesCircle size={20} className="text-rose-400" />
+                        <p>Out of stock</p>
+                      </div>
+                    )}
+                  </td>
                   <td className="flex items-center py-8 gap-1">
-                    <Button asChild variant={"outline"}>
+                    <Button asChild variant={"outline"} title="See detail">
                       <Link href={`/admin/products/${product.id}`}>
-                        <IoMdEye size={20} title="See detail" />
+                        <IoMdEye size={20} />
                       </Link>
                     </Button>
                     <UpdateProductForm

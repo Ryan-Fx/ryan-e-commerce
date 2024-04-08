@@ -33,6 +33,15 @@ export default async function ProductDetail({
           Category :{" "}
           <span className="font-normal">{product?.category.name}</span>
         </p>
+        {product?.inStock ? (
+          <p className="py-1 text-center bg-teal-400 w-24 text-white rounded-full">
+            In Stock
+          </p>
+        ) : (
+          <p className="py-1 text-center bg-rose-400 w-32 text-white rounded-full">
+            Out Of Stock
+          </p>
+        )}
       </div>
     </div>
   );

@@ -37,12 +37,15 @@ import toast from "react-hot-toast";
 import { Category, Product } from "@prisma/client";
 import axios from "axios";
 import { RxPencil2 } from "react-icons/rx";
+import { Checkbox } from "../ui/checkbox";
+import { Textarea } from "../ui/textarea";
 
 const UpdateProductFormSchema = z.object({
   name: z.string().min(1, "Name is required"),
   description: z.string().min(1, "Description is required"),
   price: z.coerce.number().min(1, "Price is required"),
   categoryId: z.string().min(1, "Category is required"),
+  inStock: z.boolean(),
   image: z.string().min(1, "Image is required"),
 });
 
@@ -67,8 +70,8 @@ export default function UpdateProductForm({
     defaultValues: product || {
       name: "",
       description: "",
-      price: 0,
       categoryId: "",
+      inStock: false,
       image: "",
     },
   });
@@ -121,8 +124,8 @@ export default function UpdateProductForm({
     <>
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger asChild>
-          <Button variant={"ghost"}>
-            <RxPencil2 size={20} title="Update" className="text-blue-500" />
+          <Button variant={"ghost"} title="Update">
+            <RxPencil2 size={20} className="text-blue-500" />
           </Button>
         </DialogTrigger>
         <DialogContent className="w-[90%] max-w-[900px]">
@@ -164,7 +167,11 @@ export default function UpdateProductForm({
                     <FormItem>
                       <FormLabel>Description *</FormLabel>
                       <FormControl>
-                        <Input type="text" placeholder="John Doe" {...field} />
+                        <Textarea
+                          className="resize-none"
+                          rows={15}
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -209,6 +216,22 @@ export default function UpdateProductForm({
                         </SelectContent>
                       </Select>
                       <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="inStock"
+                  render={({ field }) => (
+                    <FormItem className="border rounded-md p-4 flex items-end space-x-2 bg-teal-100">
+                      <FormControl>
+                        <Checkbox
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                        />
+                      </FormControl>
+                      <FormLabel>In Stock</FormLabel>
                     </FormItem>
                   )}
                 />

@@ -1,8 +1,11 @@
 import { prisma } from "@/lib/prisma";
 
-const ITEMS_PER_PAGE = 2;
+export async function getProductsPagination(
+  currentPage: number,
+  perPage: number
+) {
+  const ITEMS_PER_PAGE = perPage;
 
-export async function getProductsPagination(currentPage: number) {
   const offset = (currentPage - 1) * ITEMS_PER_PAGE; // for skip
 
   try {
@@ -24,7 +27,9 @@ export async function getProductsPagination(currentPage: number) {
 }
 
 // get total pages
-export async function getProductPagesPagination() {
+export async function getProductPagesPagination(perPage: number) {
+  const ITEMS_PER_PAGE = perPage;
+
   try {
     const products = await prisma.product.count();
 
