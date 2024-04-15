@@ -5,12 +5,20 @@ import AdminShowProducts from "@/components/admin/admin-show-products";
 import LatestOrders from "@/components/admin/latest-orders";
 import LatestOrdersSke from "@/components/ui-skeleton/admin-dashboard/latest-orders-ske";
 import ProductsSke from "@/components/ui-skeleton/admin-dashboard/products-ske";
+import { authOptions } from "@/lib/auth";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 import { Suspense } from "react";
 
 export default async function AdminPage() {
   const totalOrder = await countOrders();
   const totalCostumers = await countCostumers();
   const totalProducts = await countProducts();
+  const session = await getServerSession(authOptions);
+
+  if (session?.user.role !== "ADMIN") {
+    redirect("/");
+  }
 
   return (
     <div className="space-y-5 p-1">

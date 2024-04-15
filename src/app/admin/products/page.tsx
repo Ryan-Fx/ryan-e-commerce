@@ -1,5 +1,4 @@
 import { getCategories } from "@/actions/get-categories";
-import { getProducts } from "@/actions/get-products";
 import {
   getProductPagesPagination,
   getProductsPagination,
@@ -13,6 +12,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { IoMdEye } from "react-icons/io";
 import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
 export default async function Products({
   searchParams,
@@ -28,6 +30,12 @@ export default async function Products({
     getCategories(),
     getProductPagesPagination(itemPerPage),
   ]);
+
+  const session = await getServerSession(authOptions);
+
+  if (session?.user.role !== "ADMIN") {
+    redirect("/");
+  }
 
   return (
     <div className="w-full p-4">

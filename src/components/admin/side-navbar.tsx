@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { Button } from "../ui/button";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import NavLinks from "./nav-links";
+import { signOut } from "next-auth/react";
 
 export default function SideNavbar() {
   const [isOpen, setIsOpen] = useState(true);
@@ -25,6 +26,15 @@ export default function SideNavbar() {
         </Button>
         <div className="space-y-3 mt-12">
           <NavLinks />
+        </div>
+        <div className="flex items-end h-80">
+          <Button
+            variant={"outline"}
+            onClick={() => signOut({ callbackUrl: "/" })}
+            className="text-primary w-40 mt-4"
+          >
+            Sign out
+          </Button>
         </div>
       </div>
     </div>

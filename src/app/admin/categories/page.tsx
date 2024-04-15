@@ -2,9 +2,17 @@ import { getCategories } from "@/actions/get-categories";
 import AddCategoryForm from "@/components/admin-category/add-category-form";
 import DeleteCategory from "@/components/admin-category/delete-category";
 import UpdateCategory from "@/components/admin-category/update-category";
+import { authOptions } from "@/lib/auth";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 
 export default async function CategoriesPage() {
   const categories = await getCategories();
+  const session = await getServerSession(authOptions);
+
+  if (session?.user.role !== "ADMIN") {
+    redirect("/");
+  }
 
   return (
     <div className="w-full p-2 text-sm space-y-3">

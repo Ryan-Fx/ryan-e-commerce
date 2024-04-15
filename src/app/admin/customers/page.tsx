@@ -1,10 +1,18 @@
 import { getCustomers } from "@/actions/get-customers";
 import { Button } from "@/components/ui/button";
+import { authOptions } from "@/lib/auth";
+import { getServerSession } from "next-auth";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { IoMdEye } from "react-icons/io";
 
 export default async function CustomersPage() {
   const customers = await getCustomers();
+  const session = await getServerSession(authOptions);
+
+  if (session?.user.role !== "ADMIN") {
+    redirect("/");
+  }
 
   return (
     <div className="w-full p-4 space-y-6">
