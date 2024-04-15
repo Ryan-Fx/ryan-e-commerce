@@ -12,6 +12,7 @@ import { FaChevronDown } from "react-icons/fa";
 import CartCount from "./cart-count";
 import Link from "next/link";
 import LogoutBtn from "./button/logout";
+import { Button } from "./ui/button";
 
 export default async function Navbar() {
   const session = await getServerSession(authOptions);
@@ -21,7 +22,7 @@ export default async function Navbar() {
       <div className="flex justify-between">
         <div className="flex justify-end items-center gap-6 w-full">
           <CartCount />
-          {session && (
+          {session ? (
             <DropdownMenu>
               <DropdownMenuTrigger className="flex items-center gap-2">
                 {" "}
@@ -46,6 +47,10 @@ export default async function Navbar() {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
+          ) : (
+            <Button asChild>
+              <Link href={"/login"}>Login</Link>
+            </Button>
           )}
         </div>
       </div>
