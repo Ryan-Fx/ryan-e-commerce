@@ -20,6 +20,7 @@ import { FaChevronDown } from "react-icons/fa";
 import { HiMiniShoppingBag } from "react-icons/hi2";
 import type { Metadata } from "next";
 import Footer from "@/components/footer";
+import { getHomeProducts } from "@/actions/get-home-products";
 
 export const metadata: Metadata = {
   title: "Ryan Mall",
@@ -30,7 +31,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-  const products = await getProducts();
+  const products = await getHomeProducts();
   const session = await getServerSession(authOptions);
 
   return (
