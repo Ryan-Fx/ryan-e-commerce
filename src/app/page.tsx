@@ -117,7 +117,7 @@ export default async function Home() {
             </div>
           </div>
 
-          <div className="flex flex-wrap justify-between gap-5 min-h-screen">
+          <div className="flex flex-wrap justify-between gap-5">
             {products.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
