@@ -27,7 +27,10 @@ export default function ProductCard({ product }: ProductProps) {
         />
       </div>
       <div className="p-2 w-full">
-        <p className="text-sm">{product.name.substring(0, 45)}...</p>
+        <p className="text-sm">
+          {product.name.substring(0, 45)}
+          {product.name.length >= 45 && "..."}
+        </p>
         <p className="text-rose-400">
           {Intl.NumberFormat("id-ID", {
             style: "currency",

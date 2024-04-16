@@ -1,6 +1,15 @@
 import Cart from "@/components/cart/cart";
 import { cn } from "@/lib/utils";
+import { Metadata } from "next";
 import { Poppins } from "next/font/google";
+
+export const metadata: Metadata = {
+  title: "Ryan Store | Cart",
+  description: "Ecommerce Website",
+  icons: {
+    icon: "/icon.png",
+  },
+};
 
 const poppins = Poppins({
   subsets: ["latin"],

@@ -6,6 +6,15 @@ import Payment from "@/components/checkout/payment";
 import Link from "next/link";
 import CheckoutTableCard from "@/components/checkout/checkout-table-card";
 import { getUserById } from "@/actions/get-user-by-id";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Ryan Store | Checkout",
+  description: "Ecommerce Website",
+  icons: {
+    icon: "/icon.png",
+  },
+};
 
 export default async function CheckoutPage() {
   const session = await getServerSession(authOptions);

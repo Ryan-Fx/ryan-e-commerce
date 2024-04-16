@@ -23,7 +23,7 @@ import Footer from "@/components/footer";
 import { getHomeProducts } from "@/actions/get-home-products";
 
 export const metadata: Metadata = {
-  title: "Ryan Mall",
+  title: "Ryan Store",
   description: "Ecommerce Website",
   icons: {
     icon: "/icon.png",

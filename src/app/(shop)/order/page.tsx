@@ -7,6 +7,15 @@ import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { IoMdEye } from "react-icons/io";
 import moment from "moment";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Ryan Store | Order",
+  description: "Ecommerce Website",
+  icons: {
+    icon: "/icon.png",
+  },
+};
 
 export default async function OrderPage() {
   const session = await getServerSession(authOptions);

@@ -1,9 +1,17 @@
 import { getProducts } from "@/actions/get-products";
-import NavbarShop from "@/components/navbar-shop";
 import ProductCard from "@/components/product-shop/product-card";
 import { cn } from "@/lib/utils";
+import { Metadata } from "next";
 import { Karla, Poppins } from "next/font/google";
 import Image from "next/image";
+
+export const metadata: Metadata = {
+  title: "Ryan Store | Product",
+  description: "Ecommerce Website",
+  icons: {
+    icon: "/icon.png",
+  },
+};
 
 const poppins = Poppins({
   subsets: ["latin"],

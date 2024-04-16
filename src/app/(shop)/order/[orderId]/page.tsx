@@ -1,7 +1,16 @@
 import { getOrderById } from "@/actions/get-order-by-id";
 import { Prisma } from "@prisma/client";
 import moment from "moment";
+import { Metadata } from "next";
 import Image from "next/image";
+
+export const metadata: Metadata = {
+  title: "Ryan Store | Order Detail",
+  description: "Ecommerce Website",
+  icons: {
+    icon: "/icon.png",
+  },
+};
 
 export default async function OrderDetail({
   params,

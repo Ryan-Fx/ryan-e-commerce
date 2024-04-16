@@ -1,4 +1,13 @@
 import AddressForm from "@/components/address/address-form";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Ryan Store | Address",
+  description: "Ecommerce Website",
+  icons: {
+    icon: "/icon.png",
+  },
+};
 
 export default async function AddressPage() {
   return (
