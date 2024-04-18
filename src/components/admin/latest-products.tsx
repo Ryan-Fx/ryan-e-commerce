@@ -1,6 +1,7 @@
 import ProductCard from "../product-shop/product-card";
 import { ScrollArea } from "../ui/scroll-area";
 import { getAdminProducts } from "@/actions/get-admin-products";
+import AdminProductCard from "./admin-product-card";
 
 export default async function LatestProducts() {
   const products = await getAdminProducts();
@@ -11,7 +12,7 @@ export default async function LatestProducts() {
       <ScrollArea className=" p-2 rounded-md h-[350px]">
         <div className="flex flex-wrap gap-4 justify-between p-4">
           {products.map((product) => (
-            <ProductCard product={product} />
+            <AdminProductCard product={product} />
           ))}
         </div>
       </ScrollArea>
