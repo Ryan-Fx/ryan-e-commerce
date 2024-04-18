@@ -1,8 +1,10 @@
 import { prisma } from "@/lib/prisma";
 
-const ITEMS_PER_PAGE = 2;
-
-export async function getOrders(currentPage: number) {
+export async function getOrdersPagination(
+  currentPage: number,
+  perPage: number
+) {
+  const ITEMS_PER_PAGE = perPage;
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
   try {
@@ -20,11 +22,13 @@ export async function getOrders(currentPage: number) {
   }
 }
 
-export async function getOrdersTotalPage() {
+export async function getOrderPagesPagination(perPage: number) {
+  const ITEMS_PER_PAGE = perPage;
+
   try {
     const orders = await prisma.order.count();
 
-    const totalPages = Math.ceil(orders) / ITEMS_PER_PAGE;
+    const totalPages = Math.ceil(orders / ITEMS_PER_PAGE);
     return totalPages;
   } catch (error: any) {
     throw new Error(error);

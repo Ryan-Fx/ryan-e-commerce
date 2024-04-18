@@ -3,6 +3,7 @@
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
+import { FaHome } from "react-icons/fa";
 import { Button } from "../ui/button";
 
 export default function LoginForm() {
@@ -17,8 +18,9 @@ export default function LoginForm() {
         </Button>
       </div>
       <div>
-        <Button asChild>
+        <Button variant={"outline"} asChild>
           <Link href={"/"} className="w-full">
+            <FaHome size={20} className="mr-2 text-blue-500" />
             Back To Home
           </Link>
         </Button>

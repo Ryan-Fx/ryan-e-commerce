@@ -1,10 +1,14 @@
-import { getOrders, getOrdersTotalPage } from "@/actions/get-orders";
+import {
+  getOrderPagesPagination,
+  getOrdersPagination,
+} from "@/actions/get-orders-pagination";
 import Pagination from "@/components/pagination/pagination";
 import { Button } from "@/components/ui/button";
 import moment from "moment";
 import Link from "next/link";
 import { FaRegClock, FaRegCalendarCheck } from "react-icons/fa";
 import { IoMdEye } from "react-icons/io";
+import { MdDeliveryDining } from "react-icons/md";
 
 export default async function Orders({
   searchParams,
@@ -12,9 +16,10 @@ export default async function Orders({
   searchParams?: { page?: string };
 }) {
   const currentPage = Number(searchParams?.page) || 1;
+  const itemPerPage = 5;
 
-  const orders = await getOrders(currentPage);
-  const totalPages = await getOrdersTotalPage();
+  const orders = await getOrdersPagination(currentPage, itemPerPage);
+  const totalPages = await getOrderPagesPagination(itemPerPage);
 
   return (
     <div className="w-full p-2 space-y-3">
@@ -38,17 +43,32 @@ export default async function Orders({
                 <td>{order.id}</td>
                 <td>{order.amount}</td>
                 <td className="flex gap-1 items-center py-5">
-                  <div>
+                  <div className="py-1 px-3 text-white bg-rose-500 rounded-full">
                     {order.status === "PENDING" && (
-                      <FaRegClock size={20} className="text-red-400" />
+                      <p className="flex gap-2">
+                        <FaRegClock size={18} className="text-white" />
+                        Pending
+                      </p>
                     )}
-                  </div>
-                  <div>
+                    {order.status === "SHIPPED" && (
+                      <p>
+                        <MdDeliveryDining
+                          size={20}
+                          className="text-green-400"
+                        />
+                        Shipped
+                      </p>
+                    )}
                     {order.status === "DELIVERED" && (
-                      <FaRegCalendarCheck size={20} />
+                      <p>
+                        <FaRegCalendarCheck
+                          size={20}
+                          className="text-green-400"
+                        />
+                        Delivered
+                      </p>
                     )}
                   </div>
-                  {order.status}
                 </td>
                 <td>{moment(order.createdAt).fromNow()}</td>
                 <td>
