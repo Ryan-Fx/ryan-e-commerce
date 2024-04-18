@@ -1,5 +1,8 @@
 import AddressForm from "@/components/address/address-form";
+import { authOptions } from "@/lib/auth";
 import { Metadata } from "next";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Ryan Store | Address",
@@ -10,6 +13,10 @@ export const metadata: Metadata = {
 };
 
 export default async function AddressPage() {
+  const session = await getServerSession(authOptions);
+
+  if (session?.user.role !== "USER") redirect("/admin");
+
   return (
     <div>
       <div className="w-[600px] mx-auto p-6 space-y-4">

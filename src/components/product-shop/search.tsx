@@ -28,7 +28,7 @@ export default function Search() {
       <Input
         onChange={(e) => handleSearch(e.target.value)}
         defaultValue={searchParams.get("query")?.toString()}
-        placeholder="Searh item in Ryan Mall"
+        placeholder="Searh item in Ryan Store"
         className="pl-10"
       />{" "}
       <IoSearch size={20} className="absolute top-3 left-3 " />

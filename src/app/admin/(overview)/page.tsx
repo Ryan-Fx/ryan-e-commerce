@@ -1,7 +1,7 @@
 import { countCostumers } from "@/actions/count-costumers";
 import { countOrders } from "@/actions/count-orders";
 import { countProducts } from "@/actions/count-products";
-import AdminShowProducts from "@/components/admin/admin-show-products";
+import AdminShowProducts from "@/components/admin/latest-products";
 import LatestOrders from "@/components/admin/latest-orders";
 import LatestOrdersSke from "@/components/ui-skeleton/admin-dashboard/latest-orders-ske";
 import ProductsSke from "@/components/ui-skeleton/admin-dashboard/products-ske";
@@ -9,6 +9,7 @@ import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
+import LatestProducts from "@/components/admin/latest-products";
 
 export default async function AdminPage() {
   const totalOrder = await countOrders();
@@ -47,7 +48,7 @@ export default async function AdminPage() {
         <div className="grid grid-cols-7">
           <div className="col-span-5 p-2">
             <Suspense fallback={<ProductsSke />}>
-              <AdminShowProducts />
+              <LatestProducts />
             </Suspense>
           </div>
           <div className="p-2 col-span-2">

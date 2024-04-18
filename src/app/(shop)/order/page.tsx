@@ -8,6 +8,7 @@ import Link from "next/link";
 import { IoMdEye } from "react-icons/io";
 import moment from "moment";
 import { Metadata } from "next";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Ryan Store | Order",
@@ -19,6 +20,8 @@ export const metadata: Metadata = {
 
 export default async function OrderPage() {
   const session = await getServerSession(authOptions);
+  if (session?.user.role !== "USER") redirect("/admin");
+
   const userOrders = await getUserOrders(session?.user.id as string);
 
   if (!userOrders)

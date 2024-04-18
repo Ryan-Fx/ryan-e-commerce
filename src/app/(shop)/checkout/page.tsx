@@ -7,6 +7,7 @@ import Link from "next/link";
 import CheckoutTableCard from "@/components/checkout/checkout-table-card";
 import { getUserById } from "@/actions/get-user-by-id";
 import { Metadata } from "next";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Ryan Store | Checkout",
@@ -18,6 +19,8 @@ export const metadata: Metadata = {
 
 export default async function CheckoutPage() {
   const session = await getServerSession(authOptions);
+  if (session?.user.role !== "USER") redirect("/admin");
+
   const user = await getUserById(session?.user.id as string);
 
   const shippingCost = 46000;

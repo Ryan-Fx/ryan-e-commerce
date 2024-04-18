@@ -1,10 +1,9 @@
-import { getProducts } from "@/actions/get-products";
 import ProductCard from "../product-shop/product-card";
 import { ScrollArea } from "../ui/scroll-area";
-import { getHomeProducts } from "@/actions/get-home-products";
+import { getAdminProducts } from "@/actions/get-admin-products";
 
-export default async function AdminShowProducts() {
-  const products = await getHomeProducts();
+export default async function LatestProducts() {
+  const products = await getAdminProducts();
 
   return (
     <div className="bg-slate-50">

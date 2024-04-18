@@ -1,4 +1,3 @@
-import { getProducts } from "@/actions/get-products";
 import LogoutBtn from "@/components/button/logout";
 import CartCountHome from "@/components/cart-count-home";
 import ProductCard from "@/components/product-shop/product-card";
@@ -20,7 +19,8 @@ import { FaChevronDown } from "react-icons/fa";
 import { HiMiniShoppingBag } from "react-icons/hi2";
 import type { Metadata } from "next";
 import Footer from "@/components/footer";
-import { getHomeProducts } from "@/actions/get-home-products";
+import { RxDashboard } from "react-icons/rx";
+import { getShopProducts } from "@/actions/get-shop-products";
 
 export const metadata: Metadata = {
   title: "Ryan Store",
@@ -30,23 +30,28 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function Home() {
-  const products = await getHomeProducts();
+export default async function Home({
+  searchParams,
+}: {
+  searchParams?: { query?: string };
+}) {
+  const query = searchParams?.query || "";
+  const products = await getShopProducts(query);
   const session = await getServerSession(authOptions);
 
   return (
     <div>
-      <header className="fixed top-0 right-0 left-0 backdrop-blur-md z-10">
+      <header className="sticky top-0  backdrop-blur-md z-10">
         <nav className="bg-red-600 py-2 px-40 opacity-80">
           <div className="flex justify-between">
             <div className="flex justify-end items-center gap-6 w-full">
-              {session && <CartCountHome />}
-              {session ? (
+              {session && session?.user.role !== "ADMIN" && <CartCountHome />}
+              {session && session?.user.role !== "ADMIN" && (
                 <DropdownMenu>
                   <DropdownMenuTrigger className="flex items-center gap-2">
                     {" "}
                     <p className="text-primary-foreground text-sm capitalize hover:text-purple-400">
-                      {session.user.name}
+                      {session?.user.name}
                     </p>{" "}
                     <FaChevronDown size={16} className="text-white" />
                   </DropdownMenuTrigger>
@@ -65,7 +70,8 @@ export default async function Home() {
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
-              ) : (
+              )}
+              {!session && (
                 <>
                   <Button asChild>
                     <Link href={"/login"}>Please Login</Link>
@@ -75,7 +81,7 @@ export default async function Home() {
             </div>
           </div>
         </nav>
-        <div className="flex items-center px-40 bg-red-600 py-5 opacity-80">
+        <div className="flex items-center px-40 bg-red-600 py-4 opacity-80">
           <Link href={"/"} className="w-full flex items-end">
             <HiMiniShoppingBag size={50} className="mr-4 text-secondary" />{" "}
             <span className="font-extrabold text-secondary text-4xl">
@@ -86,47 +92,64 @@ export default async function Home() {
         </div>
       </header>
 
-      <main className="mt-40 mb-14">
-        <div className="px-40 space-y-8">
-          <div className="flex">
-            <div>
-              <Image
-                src="/img/cora2.jpg"
-                alt="logo"
-                width={700}
-                height={500}
-                className="w-[800px]"
-                priority
-              />
+      {session?.user.role !== "ADMIN" && (
+        <main className="mt-4 mb-14">
+          <div className="px-40 space-y-8">
+            <div className="flex">
+              <div>
+                <Image
+                  src="/img/cora2.jpg"
+                  alt="logo"
+                  width={700}
+                  height={500}
+                  className="w-[800px]"
+                  priority
+                />
+              </div>
+              <div className="w-[400px]">
+                <Image
+                  src="/img/cora-right.png"
+                  alt="logo"
+                  width={500}
+                  height={400}
+                  priority
+                />
+                <Image
+                  src="/img/cora-right2.png"
+                  alt="logo"
+                  width={500}
+                  height={400}
+                  priority
+                />
+              </div>
             </div>
-            <div className="w-[400px]">
-              <Image
-                src="/img/cora-right.png"
-                alt="logo"
-                width={500}
-                height={400}
-                priority
-              />
-              <Image
-                src="/img/cora-right2.png"
-                alt="logo"
-                width={500}
-                height={400}
-                priority
-              />
-            </div>
-          </div>
 
-          <div className="flex flex-wrap justify-between gap-5">
-            {products.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
+            <div className="flex flex-wrap justify-between gap-5">
+              {products.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
           </div>
+        </main>
+      )}
+      {session && session.user.role !== "USER" && (
+        <div className="mt-[300px] mb-14 text-center space-y-4">
+          <h1 className=" text-3xl font-semibold text-rose-500">
+            Welcome back, Admin 😎
+          </h1>
+          <Button asChild>
+            <Link href={"/admin"}>
+              <RxDashboard size={18} className="mr-2 text-blue-500" />
+              Go to Dashboard
+            </Link>
+          </Button>
         </div>
-      </main>
-      <footer>
-        <Footer />
-      </footer>
+      )}
+      {session?.user.role !== "ADMIN" && (
+        <footer>
+          <Footer />
+        </footer>
+      )}
     </div>
   );
 }

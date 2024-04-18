@@ -1,9 +1,8 @@
 import { prisma } from "@/lib/prisma";
 
-export async function getProducts(query: string) {
+export async function getShopProducts(query: string) {
   try {
     const products = await prisma.product.findMany({
-      take: 6,
       where: {
         OR: [
           {

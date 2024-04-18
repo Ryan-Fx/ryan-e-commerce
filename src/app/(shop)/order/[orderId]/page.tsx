@@ -1,8 +1,11 @@
 import { getOrderById } from "@/actions/get-order-by-id";
+import { authOptions } from "@/lib/auth";
 import { Prisma } from "@prisma/client";
 import moment from "moment";
 import { Metadata } from "next";
+import { getServerSession } from "next-auth";
 import Image from "next/image";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Ryan Store | Order Detail",
@@ -17,6 +20,9 @@ export default async function OrderDetail({
 }: {
   params: { orderId: string };
 }) {
+  const session = await getServerSession(authOptions);
+  if (session?.user.role !== "USER") redirect("/admin");
+
   const order = await getOrderById(params.orderId);
   const items = order?.items as Prisma.JsonObject[];
   console.log(order);

@@ -1,9 +1,12 @@
-import { getProducts } from "@/actions/get-products";
+import { getShopProducts } from "@/actions/get-shop-products";
 import ProductCard from "@/components/product-shop/product-card";
+import { authOptions } from "@/lib/auth";
 import { cn } from "@/lib/utils";
 import { Metadata } from "next";
+import { getServerSession } from "next-auth";
 import { Karla, Poppins } from "next/font/google";
 import Image from "next/image";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Ryan Store | Product",
@@ -29,12 +32,13 @@ export default async function ProductPage({
   searchParams?: { query?: string };
 }) {
   const query = searchParams?.query || "";
+  const products = await getShopProducts(query);
+  const session = await getServerSession(authOptions);
 
-  const products = await getProducts(query);
+  if (session?.user.role !== "USER") redirect("/admin");
 
   return (
     <div className={cn("", poppins.className)}>
-      {/* navbar */}
       <div className="px-40 py-4 space-y-8">
         <div className="flex">
           <div>
