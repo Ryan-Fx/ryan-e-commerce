@@ -1,7 +1,6 @@
 import { countCostumers } from "@/actions/count-costumers";
 import { countOrders } from "@/actions/count-orders";
 import { countProducts } from "@/actions/count-products";
-import AdminShowProducts from "@/components/admin/latest-products";
 import LatestOrders from "@/components/admin/latest-orders";
 import LatestOrdersSke from "@/components/ui-skeleton/admin-dashboard/latest-orders-ske";
 import ProductsSke from "@/components/ui-skeleton/admin-dashboard/products-ske";
@@ -10,6 +9,7 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import LatestProducts from "@/components/admin/latest-products";
+import Image from "next/image";
 
 export default async function AdminPage() {
   const totalOrder = await countOrders();
@@ -23,7 +23,19 @@ export default async function AdminPage() {
 
   return (
     <div className="space-y-5 p-1">
-      <h1 className="text-xl">Admin Dashboard</h1>
+      <div className="flex justify-between px-10 bg-slate-700 py-2 rounded-md text-white">
+        <h1 className="text-xl">Admin Dashboard</h1>
+        <div className="flex items-center gap-3">
+          <Image
+            src={session?.user.image!}
+            alt="user"
+            width={30}
+            height={30}
+            className="rounded-full"
+          />
+          <p>{session?.user.name}</p>
+        </div>
+      </div>
       <div className="space-y-4">
         <div className="grid grid-cols-3 gap-4">
           <div className="text-center bg-slate-50 p-2 rounded-sm">
