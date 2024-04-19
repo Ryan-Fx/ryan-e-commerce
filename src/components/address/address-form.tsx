@@ -18,6 +18,7 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import { useState } from "react";
+import { useSession } from "next-auth/react";
 
 const AddressFormSchema = z.object({
   street: z.string().min(1, "Street is required"),
@@ -29,6 +30,7 @@ const AddressFormSchema = z.object({
 
 export default function AddressForm() {
   const [isLoading, setIsLoading] = useState(false);
+  const { data: session } = useSession();
 
   const router = useRouter();
 

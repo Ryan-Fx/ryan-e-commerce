@@ -20,7 +20,7 @@ export default async function ProfilePage() {
   return (
     <div className="bg-red-50 min-h-screen">
       <div className={cn("w-full py-10", mina.className)}>
-        <ProfileCard user={user}  />
+        <ProfileCard user={user} />
       </div>
     </div>
   );

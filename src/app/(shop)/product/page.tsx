@@ -35,7 +35,7 @@ export default async function ProductPage({
   const products = await getShopProducts(query);
   const session = await getServerSession(authOptions);
 
-  if (session?.user.role !== "USER") redirect("/admin");
+  if (session && session?.user.role !== "USER") redirect("/admin");
 
   return (
     <div className={cn("", poppins.className)}>

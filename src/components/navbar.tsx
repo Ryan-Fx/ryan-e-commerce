@@ -21,7 +21,7 @@ export default async function Navbar() {
   return (
     <nav className="sticky top-0 z-10 bg-red-600 py-2 px-40">
       <div className="flex justify-between">
-        <div className="flex justify-end items-center gap-6 w-full">
+        <div className="flex justify-end items-center gap-10 w-full">
           <CartCount />
           {session ? (
             <DropdownMenu>

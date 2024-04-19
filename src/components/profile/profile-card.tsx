@@ -10,6 +10,7 @@ import {
 } from "../ui/card";
 import { Address, User } from "@prisma/client";
 import { use } from "react";
+import Link from "next/link";
 
 type UserWithAddress = User & {
   address: Address | null;
@@ -54,26 +55,32 @@ export default function ProfileCard({
               </tbody>
             </table>
 
-            <div className="mt-4">
-              <p>Address</p>
-              <div className="flex flex-wrap gap-4">
-                <div className="w-[150px] text-right">
-                  <p>Street</p>
-                  <p>City</p>
-                  <p>State</p>
-                  <p>Postal Code</p>
-                  <p>Phone Number</p>
-                </div>
+            {user?.address ? (
+              <div className="mt-4">
+                <p>Address</p>
+                <div className="flex flex-wrap gap-4">
+                  <div className="w-[150px] text-right">
+                    <p>Street</p>
+                    <p>City</p>
+                    <p>State</p>
+                    <p>Postal Code</p>
+                    <p>Phone Number</p>
+                  </div>
 
-                <div key={user?.address?.id}>
-                  <p>{user?.address?.street}</p>
-                  <p>{user?.address?.city}</p>
-                  <p>{user?.address?.state}</p>
-                  <p>{user?.address?.postalCode}</p>
-                  <p>{user?.address?.phoneNumber}</p>
+                  <div key={user?.address?.id}>
+                    <p>{user?.address?.street}</p>
+                    <p>{user?.address?.city}</p>
+                    <p>{user?.address?.state}</p>
+                    <p>{user?.address?.postalCode}</p>
+                    <p>{user?.address?.phoneNumber}</p>
+                  </div>
                 </div>
               </div>
-            </div>
+            ) : (
+              <Link href={"/address"} className="mt-4">
+                Please input your address first
+              </Link>
+            )}
           </div>
         </CardContent>
       </Card>

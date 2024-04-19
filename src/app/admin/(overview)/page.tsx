@@ -29,8 +29,8 @@ export default async function AdminPage() {
           <Image
             src={session?.user.image!}
             alt="admin"
-            width={30}
-            height={30}
+            width={25}
+            height={25}
             className="rounded-full"
           />
           <p>{session?.user.name}</p>
