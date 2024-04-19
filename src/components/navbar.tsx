@@ -13,6 +13,7 @@ import CartCount from "./cart-count";
 import Link from "next/link";
 import LogoutBtn from "./button/logout";
 import { Button } from "./ui/button";
+import Image from "next/image";
 
 export default async function Navbar() {
   const session = await getServerSession(authOptions);
@@ -25,10 +26,18 @@ export default async function Navbar() {
           {session ? (
             <DropdownMenu>
               <DropdownMenuTrigger className="flex items-center gap-2">
-                {" "}
-                <p className="text-primary-foreground text-sm capitalize hover:text-purple-400">
-                  {session.user.name}
-                </p>{" "}
+                <div className="flex items-center gap-2">
+                  <Image
+                    src={session.user.image!}
+                    alt={session.user.name!}
+                    width={30}
+                    height={30}
+                    className="rounded-full"
+                  />
+                  <p className="text-primary-foreground text-sm capitalize hover:text-purple-400">
+                    {session.user.name}
+                  </p>
+                </div>
                 <FaChevronDown size={16} className="text-white" />
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-[170px]">

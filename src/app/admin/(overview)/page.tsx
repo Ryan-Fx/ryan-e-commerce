@@ -28,7 +28,7 @@ export default async function AdminPage() {
         <div className="flex items-center gap-3">
           <Image
             src={session?.user.image!}
-            alt="user"
+            alt="admin"
             width={30}
             height={30}
             className="rounded-full"
