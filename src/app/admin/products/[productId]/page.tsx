@@ -1,4 +1,5 @@
 import { getProductById } from "@/actions/get-product-by-id";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import Image from "next/image";
 
 export default async function ProductDetail({
@@ -28,7 +29,9 @@ export default async function ProductDetail({
             }).format(product!.price)}
           </p>
         </div>
-        <p>{product?.description}</p>
+        <ScrollArea className="h-[300px] w-full pr-3 text-justify">
+          {product?.description}
+        </ScrollArea>
         <p className="font-semibold">
           Category :{" "}
           <span className="font-normal">{product?.category.name}</span>
