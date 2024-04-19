@@ -42,7 +42,7 @@ export default async function Home({
   return (
     <div>
       <header className="sticky top-0  backdrop-blur-md z-10">
-        <nav className="bg-red-600 py-2 px-40 opacity-80">
+        <nav className="bg-red-600 py-2 px-40 bg-opacity-85">
           <div className="flex justify-between">
             <div className="flex justify-end items-center gap-6 w-full">
               {session && session?.user.role !== "ADMIN" && <CartCountHome />}
@@ -56,7 +56,7 @@ export default async function Home({
                       height={30}
                       className="rounded-full"
                     />
-                    <p className="text-primary-foreground text-sm capitalize hover:text-purple-400">
+                    <p className="text-primary-foreground text-sm capitalize hover:text-fuchsia-400">
                       {session?.user.name}
                     </p>
                     <FaChevronDown size={16} className="text-white" />
@@ -87,7 +87,7 @@ export default async function Home({
             </div>
           </div>
         </nav>
-        <div className="flex items-center px-40 bg-red-600 py-4 opacity-80">
+        <div className="flex items-center px-40 bg-red-600 py-4 opacity-85">
           <Link href={"/"} className="w-full flex items-end">
             <HiMiniShoppingBag size={50} className="mr-4 text-secondary" />{" "}
             <span className="font-extrabold text-secondary text-4xl">

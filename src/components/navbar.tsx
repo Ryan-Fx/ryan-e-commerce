@@ -34,7 +34,7 @@ export default async function Navbar() {
                     height={30}
                     className="rounded-full"
                   />
-                  <p className="text-primary-foreground text-sm capitalize hover:text-purple-400">
+                  <p className="text-primary-foreground text-sm capitalize hover:text-fuchsia-400">
                     {session.user.name}
                   </p>
                 </div>
