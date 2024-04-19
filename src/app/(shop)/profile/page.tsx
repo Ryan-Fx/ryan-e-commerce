@@ -1,5 +1,4 @@
 import { getUserById } from "@/actions/get-user-by-id";
-import NavbarShop from "@/components/navbar-shop";
 import ProfileCard from "@/components/profile/profile-card";
 import { authOptions } from "@/lib/auth";
 import { cn } from "@/lib/utils";
@@ -20,9 +19,8 @@ export default async function ProfilePage() {
 
   return (
     <div className="bg-red-50 min-h-screen">
-      <NavbarShop />
       <div className={cn("w-full py-10", mina.className)}>
-        <ProfileCard user={user} address={user?.address} />
+        <ProfileCard user={user}  />
       </div>
     </div>
   );

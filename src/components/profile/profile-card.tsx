@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import {
   Card,
   CardContent,
@@ -8,13 +9,17 @@ import {
   CardTitle,
 } from "../ui/card";
 import { Address, User } from "@prisma/client";
+import { use } from "react";
 
-interface UserProp {
-  user: User | null;
-  address: Address | null | undefined;
-}
+type UserWithAddress = User & {
+  address: Address | null;
+};
 
-export default function ProfileCard({ user, address }: UserProp) {
+export default function ProfileCard({
+  user,
+}: {
+  user: UserWithAddress | null;
+}) {
   return (
     <div className="flex justify-center">
       <Card className="w-[800px] border-none shadow-lg">
@@ -26,36 +31,47 @@ export default function ProfileCard({ user, address }: UserProp) {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <table className="w-full">
-            <tbody>
-              <tr>
-                <td>Name:</td>
-                <td>{user?.name}</td>
-              </tr>
-              <tr>
-                <td>Email:</td>
-                <td>{user?.email}</td>
-              </tr>
-            </tbody>
-          </table>
+          <div>
+            <div className="flex justify-center mb-8">
+              <Image
+                src={user?.image!}
+                alt={user?.name!}
+                width={150}
+                height={150}
+                className="rounded-md shadow-lg shadow-slate-500/60"
+              />
+            </div>
+            <table className="w-full">
+              <tbody>
+                <tr>
+                  <td>Name:</td>
+                  <td>{user?.name}</td>
+                </tr>
+                <tr>
+                  <td>Email:</td>
+                  <td>{user?.email}</td>
+                </tr>
+              </tbody>
+            </table>
 
-          <div className="mt-4">
-            <p>Address</p>
-            <div className="flex flex-wrap gap-4">
-              <div className="w-[150px] text-right">
-                <p>Street</p>
-                <p>City</p>
-                <p>State</p>
-                <p>Postal Code</p>
-                <p>Phone Number</p>
-              </div>
+            <div className="mt-4">
+              <p>Address</p>
+              <div className="flex flex-wrap gap-4">
+                <div className="w-[150px] text-right">
+                  <p>Street</p>
+                  <p>City</p>
+                  <p>State</p>
+                  <p>Postal Code</p>
+                  <p>Phone Number</p>
+                </div>
 
-              <div key={address?.id}>
-                <p>{address?.street}</p>
-                <p>{address?.city}</p>
-                <p>{address?.state}</p>
-                <p>{address?.postalCode}</p>
-                <p>{address?.phoneNumber}</p>
+                <div key={user?.address?.id}>
+                  <p>{user?.address?.street}</p>
+                  <p>{user?.address?.city}</p>
+                  <p>{user?.address?.state}</p>
+                  <p>{user?.address?.postalCode}</p>
+                  <p>{user?.address?.phoneNumber}</p>
+                </div>
               </div>
             </div>
           </div>
