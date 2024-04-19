@@ -19,10 +19,10 @@ export default async function Navbar() {
   const session = await getServerSession(authOptions);
 
   return (
-    <nav className="sticky top-0 z-10 bg-red-600 py-2 px-40">
+    <nav className="bg-red-600 py-2 px-40">
       <div className="flex justify-between">
         <div className="flex justify-end items-center gap-10 w-full">
-          <CartCount />
+          {session && <CartCount />}
           {session ? (
             <DropdownMenu>
               <DropdownMenuTrigger className="flex items-center gap-2">
