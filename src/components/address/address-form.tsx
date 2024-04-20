@@ -19,6 +19,7 @@ import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
+import { Address } from "@prisma/client";
 
 const AddressFormSchema = z.object({
   street: z.string().min(1, "Street is required"),
@@ -28,7 +29,11 @@ const AddressFormSchema = z.object({
   phoneNumber: z.string().min(1, "Phone number is required"),
 });
 
-export default function AddressForm() {
+export default function AddressForm({
+  address,
+}: {
+  address: Address | null | undefined;
+}) {
   const [isLoading, setIsLoading] = useState(false);
   const { data: session } = useSession();
 
@@ -36,7 +41,7 @@ export default function AddressForm() {
 
   const form = useForm<z.infer<typeof AddressFormSchema>>({
     resolver: zodResolver(AddressFormSchema),
-    defaultValues: {
+    defaultValues: address || {
       street: "",
       city: "",
       state: "",
@@ -48,20 +53,49 @@ export default function AddressForm() {
   function onSubmit(data: z.infer<typeof AddressFormSchema>) {
     setIsLoading(true);
 
-    axios
-      .post("/api/address", data)
-      .then((res) => {
-        setIsLoading(false);
-        toast.success("Address added successfully");
-        form.reset();
-        router.refresh();
-        router.push("/product");
-      })
-      .catch((err) => {
-        setIsLoading(false);
-        console.log(err);
-        toast.error("Something went wrong");
-      });
+    if (!address) {
+      axios
+        .post("/api/address", data)
+        .then((res) => {
+          setIsLoading(false);
+          toast.success("Address added successfully");
+          form.reset();
+          router.refresh();
+          router.push("/product");
+        })
+        .catch((err) => {
+          setIsLoading(false);
+          console.log(err);
+          toast.error("Something went wrong");
+        });
+      axios
+        .post("/api/address", data)
+        .then((res) => {
+          setIsLoading(false);
+          toast.success("Address added successfully");
+          form.reset();
+          router.refresh();
+          router.push("/product");
+        })
+        .catch((err) => {
+          setIsLoading(false);
+          console.log(err);
+          toast.error("Something went wrong");
+        });
+    } else {
+      axios
+        .patch(`/api/address/${address.id}`, data)
+        .then((res) => {
+          setIsLoading(false);
+          toast.success('"Address updated successfully"');
+          router.refresh();
+        })
+        .catch((err) => {
+          console.log(err);
+          setIsLoading(false);
+          toast.error("Something went wrong");
+        });
+    }
   }
 
   return (
@@ -69,7 +103,7 @@ export default function AddressForm() {
       <form
         action=""
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-5 p-10 border"
+        className="space-y-5 p-10 border rounded-sm"
       >
         <FormField
           control={form.control}
@@ -120,7 +154,7 @@ export default function AddressForm() {
             <FormItem>
               <FormLabel>Postal Code *</FormLabel>
               <FormControl>
-                <Input type="text" {...field} />
+                <Input type="number" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
