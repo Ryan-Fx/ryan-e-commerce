@@ -20,6 +20,7 @@ import { Loader2 } from "lucide-react";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { Address } from "@prisma/client";
+import Link from "next/link";
 
 const AddressFormSchema = z.object({
   street: z.string().min(1, "Street is required"),
@@ -175,16 +176,21 @@ export default function AddressForm({
           )}
         />
 
-        <Button>
-          {isLoading ? (
-            <>
-              <Loader2 size={16} className="animate-spin mr-2" />
-              Saving
-            </>
-          ) : (
-            "Save"
-          )}
-        </Button>
+        <div className="flex justify-between">
+          <Button>
+            {isLoading ? (
+              <>
+                <Loader2 size={16} className="animate-spin mr-2" />
+                Saving
+              </>
+            ) : (
+              "Save"
+            )}
+          </Button>
+          <Button variant={"outline"} asChild>
+            <Link href={"/"}>Back to Home</Link>
+          </Button>
+        </div>
       </form>
     </Form>
   );
