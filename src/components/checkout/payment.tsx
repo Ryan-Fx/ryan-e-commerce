@@ -95,8 +95,11 @@ export default function Payment({ shippingCost }: ShippingCostProp) {
             </tr>
             <tr>
               <td className="py-2">Total Payment :</td>
-              <td className="text-right text-red-500 text-2xl font-semibold">
-                {total + shippingCost}
+              <td className="text-right text-red-500 text-xl font-semibold">
+                {amount.toLocaleString("id-ID", {
+                  style: "currency",
+                  currency: "IDR",
+                })}
               </td>
             </tr>
           </tbody>

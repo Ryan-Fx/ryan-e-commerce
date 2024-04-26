@@ -32,16 +32,29 @@ export default function CheckoutTableCard() {
                   <p>{item.name}</p>
                 </div>
               </td>
-              <td>{item.price}</td>
+              <td>
+                {item.price.toLocaleString("id-ID", {
+                  style: "currency",
+                  currency: "IDR",
+                })}
+              </td>
               <td>{item.quantity}</td>
-              <td>{item.price * item.quantity!}</td>
+              <td>
+                {Intl.NumberFormat("id-ID", {
+                  style: "currency",
+                  currency: "IDR",
+                }).format(item.price * item.quantity!)}
+              </td>
             </tr>
             <tr className="border-b">
               <td className="py-4 px-2 text-right" colSpan={3}>
                 Order Total ({item.quantity} item{item.quantity! > 1 && "s"}) :
               </td>
               <td className=" font-semibold text-red-500 text-xl">
-                {item.price * item.quantity!}
+                {Intl.NumberFormat("id-ID", {
+                  style: "currency",
+                  currency: "IDR",
+                }).format(item.price * item.quantity!)}
               </td>
             </tr>
           </tbody>
