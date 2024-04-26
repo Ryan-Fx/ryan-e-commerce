@@ -70,12 +70,7 @@ export default async function CheckoutPage() {
         </div>
         <div className=" flex gap-48 mt-2">
           <p className="text-teal-500">Reguler</p>
-          <p>
-            {shippingCost.toLocaleString("id-ID", {
-              style: "currency",
-              currency: "IDR",
-            })}
-          </p>
+          <p>Rp {shippingCost}</p>
         </div>
       </div>
 

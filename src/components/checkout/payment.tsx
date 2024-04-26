@@ -7,7 +7,6 @@ import { Button } from "../ui/button";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { Item } from "@radix-ui/react-dropdown-menu";
 
 interface ShippingCostProp {
   shippingCost: number;
@@ -83,23 +82,25 @@ export default function Payment({ shippingCost }: ShippingCostProp) {
 
             <tr>
               <td className="py-2">Merchandise Total : </td>
-              <td className="text-right">{total}</td>
+              <td className="text-right">
+                {total.toLocaleString("id-ID", {
+                  style: "currency",
+                  currency: "IDR",
+                })}
+              </td>
             </tr>
             <tr>
               <td className="py-2 border-b-2 border-red-400">
                 Shipping Total :
               </td>
               <td className="text-right border-b-2 border-red-400">
-                {shippingCost}
+                Rp {shippingCost}
               </td>
             </tr>
             <tr>
               <td className="py-2">Total Payment :</td>
               <td className="text-right text-red-500 text-xl font-semibold">
-                {amount.toLocaleString("id-ID", {
-                  style: "currency",
-                  currency: "IDR",
-                })}
+                {total + shippingCost}
               </td>
             </tr>
           </tbody>
