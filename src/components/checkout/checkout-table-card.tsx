@@ -51,10 +51,10 @@ export default function CheckoutTableCard() {
                 Order Total ({item.quantity} item{item.quantity! > 1 && "s"}) :
               </td>
               <td className=" font-semibold text-red-500 text-xl">
-                {Intl.NumberFormat("id-ID", {
+                {(item.price * item.quantity!).toLocaleString("id-ID", {
                   style: "currency",
                   currency: "IDR",
-                }).format(item.price * item.quantity!)}
+                })}
               </td>
             </tr>
           </tbody>
