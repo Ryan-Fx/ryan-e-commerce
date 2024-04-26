@@ -36,7 +36,6 @@ export default function AddressForm({
   address: Address | null | undefined;
 }) {
   const [isLoading, setIsLoading] = useState(false);
-  const { data: session } = useSession();
 
   const router = useRouter();
 

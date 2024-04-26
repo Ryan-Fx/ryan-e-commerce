@@ -1,3 +1,4 @@
+import { getAddressById } from "@/actions/get-address-by-id";
 import AddressForm from "@/components/address/address-form";
 import { authOptions } from "@/lib/auth";
 import { Metadata } from "next";
@@ -14,8 +15,9 @@ export const metadata: Metadata = {
 
 export default async function AddressPage() {
   const session = await getServerSession(authOptions);
-
   if (session?.user.role !== "USER") redirect("/admin");
+
+  const address = await getAddressById(session.user.id);
 
   return (
     <div>
@@ -23,7 +25,7 @@ export default async function AddressPage() {
         <p className="text-center capitalize">
           Please input your valid Address
         </p>
-        <AddressForm />
+        <AddressForm address={address} />
       </div>
     </div>
   );
