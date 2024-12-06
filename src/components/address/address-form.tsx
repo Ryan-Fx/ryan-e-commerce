@@ -68,20 +68,20 @@ export default function AddressForm({
           console.log(err);
           toast.error("Something went wrong");
         });
-      axios
-        .post("/api/address", data)
-        .then((res) => {
-          setIsLoading(false);
-          toast.success("Address added successfully");
-          form.reset();
-          router.refresh();
-          router.push("/product");
-        })
-        .catch((err) => {
-          setIsLoading(false);
-          console.log(err);
-          toast.error("Something went wrong");
-        });
+      // axios
+      //   .post("/api/address", data)
+      //   .then((res) => {
+      //     setIsLoading(false);
+      //     toast.success("Address added successfully");
+      //     form.reset();
+      //     router.refresh();
+      //     router.push("/product");
+      //   })
+      //   .catch((err) => {
+      //     setIsLoading(false);
+      //     console.log(err);
+      //     toast.error("Something went wrong");
+      //   });
     } else {
       axios
         .patch(`/api/address/${address.id}`, data)
